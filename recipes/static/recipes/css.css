@@ -1,0 +1,509 @@
+/* Gradient Background */
+body {
+    background: linear-gradient(#646257, #2e2c2c,#646257);
+    margin: 0;
+    height: 100vh;
+}
+
+.body2 {
+    background: linear-gradient( #D8D4BB, #8f8f8f);
+    margin: 0;
+    height: 100vh;
+}
+
+header {
+
+    background-color: #D8D4BB;
+}
+
+
+.flexbox-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+.flexbox-item {
+
+    display: flex; /* Add this to create a flex container */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    width: 350px;
+    height: 40px;
+    margin: 10px 0px;
+    border: 2px solid #333;
+    border-bottom: none;
+    font-size: fill;
+    
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+
+.flexbox-item-entrybox {
+    background-color: #efecec;
+    border-radius: 8px;
+    border-color: rgb(0, 0, 0);
+    padding: 0px 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+
+/* Hover Effects */
+.flexbox-item:hover {
+    transform: translateY(-5px);
+}
+
+/* Input and Button Focus Styles */
+.flexbox-item-entrybox:focus, .flexbox-item-button:focus {
+    outline: none;
+    border-color: #bfc0aa;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Additional Styling for Enhanced Beauty */
+.flexbox-item-1, .flexbox-item-2, .flexbox-item-3, .flexbox-item-4,
+.flexbox-item-5, .flexbox-item-6 {
+    margin: 10px -.4px; /* Set vertical margin to 10px and remove horizontal margin */
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0; /* Rounded corners on top */
+    color: #333;
+    background-color:#D8D4BB;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+}
+
+
+.flexbox-item-button {
+    background-color: #b5f1ae;
+    border: 2px;
+    border-radius: 10px 10px 0 0; /* Rounded corners on top */
+    padding: 0px;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.flexbox-item-button:hover {
+    background-color: #00ff00;
+    transform: translateY(0px);
+}
+
+.flexbox-item-entrybox:hover {
+    background-color:  #ffffff;
+
+    transform:scale(1.01)
+}
+
+
+
+.carousel-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    background: none;
+    height: 1000px;
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+}
+
+
+
+#topbarbackcolor {
+    background: linear-gradient(to top, #D8D4BB 93%, transparent 96%);
+    height:565px;
+
+    /* Adjust the percentages to control the gradient position and transition */
+
+    
+}
+
+.book-image img {
+
+    max-height:350px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.carousel-container4 {
+    overflow-x: auto;
+    white-space: nowrap;
+    background: none;
+    height: fit-content;
+    top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: top;
+    max-width: 100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+}
+
+.flexbox-container3 {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    max-width: 100%;
+
+}
+
+.book-item {
+    display: inline-block;
+    margin: 0 10px;
+    border: 2px solid #333;
+    background: linear-gradient(to bottom, #ffffff, #e5e5e5);
+    border-radius: 3px;
+
+    text-align: center;
+    transition: transform 0.3s; /* Add transition for smooth sliding effect */
+}
+
+.book-item:hover {
+    transform: scale(1.0);
+}
+
+.page-image img {
+    max-width: 1200px;
+    max-height: 700px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.book-item5 { 
+    display: inline-block;
+    margin: 0 10px;
+    border: 2px solid #333;
+    background: linear-gradient(to bottom, #ffffff, #e5e5e5);
+    border-radius: 3px;
+
+    text-align: center;
+    transition: transform 0.3s; /* Add transition for smooth sliding effect */
+}
+
+.page-image {
+
+    max-height: 90%;
+}
+
+
+
+
+
+/* Equal columns */
+
+.column {
+
+    float: left;
+
+    width: 19%;
+
+    max-height: 150px;
+
+    overflow: fit-content;
+    align-items: center;
+
+    position: relative;
+
+    padding-left: 5px;
+
+
+    text-align: center; /* Center the content */
+
+
+}
+
+.book-image2 img {
+
+    width: fit-content;
+    max-width: 100%;
+
+
+    object-fit: cover;
+
+    max-height: 100%; /* Ensure image doesn't exceed column's height */
+
+}
+
+.titlelabel {
+    background-color: #e3e3e2;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+    border-radius:4%;
+    min-height: 50px;
+    
+    height: fit-content;
+    border: 2px solid #333;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center; /* Center items within BodyTag */
+}
+
+
+.column2 {
+
+    float: left;
+
+    width: 19%;
+    
+
+
+    max-height: fit-content;
+
+    overflow: fit-content;
+
+    position: relative;
+    background-color: #ffffff00;
+
+
+    text-align: center; /* Center the content */
+
+    padding-left: 10px;
+
+}
+
+
+
+.object {
+
+    background-color: #ffffff;
+    border-radius: 15px 15px 15px 15px;
+
+}
+
+.videotitles{
+    background-color:  #848273;
+
+    border-radius: 15px 15px 0px 0px;
+
+    padding-top: 3px;
+}
+
+.videotitles2{
+    background-color:  #a8a591;
+    border-radius: 3px;
+    padding-top: 3px;
+}
+.videotitles3{
+    background-color: #c4c0a9;
+    border-radius: 3px;
+    padding-top: 3px;
+}
+
+.thumbnail img{
+    max-width: 99%;
+    border-radius: 15px;
+
+
+
+}
+.videotitles4{
+    background-color:#a8a591;
+    width: fit-content;
+    height: fit-content;
+
+    border-radius: 0px 15px 0px 0px;
+    padding-right: 10px;
+    padding-left: 10px;
+
+    padding-top: 3px;
+}
+
+.videotitles5{
+    background-color:  #a8a591;
+    
+    border-radius: 3px;
+    padding-top: 25px;
+}
+.videotitles6{
+    background-color: #a8a591;
+    border-radius: 3px;
+    padding-top: 3px;
+    padding-top: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.viewer {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+  
+
+}
+
+.postbody{
+
+    width: 95%;
+    display: flex;
+    justify-content: left;
+    padding:10px;
+    border-radius: 15px 15px 15px 15px;
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+.file-folder {
+
+    display: inline-block;
+
+    width: 20%;
+
+    margin: 1%;
+
+    padding: 10px;
+
+    background-color: #f4f4f4;
+
+    border: 1px solid #ccc;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    text-align: center;
+
+}
+
+
+.file-link {
+
+    text-decoration: none;
+
+    color: #333;
+
+    display: block;
+
+}
+
+
+.file-container {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+}
+
+
+.file-heading {
+
+    font-size: 24px;
+
+    margin: 20px 0;
+
+}
+/* Add this style to the existing .column2 class */
+
+.flexbox-container5 {
+
+    display: flex;
+    height: fit-content;
+    
+
+    flex-wrap: wrap; /* Wrap the items onto multiple lines */
+
+    justify-content: flex-start; /* Distribute items evenly along the main axis */
+
+}
+
+.label {
+
+    background-color: #000000;
+
+    color: rgb(255, 255, 255);
+
+    border-radius: 50%;
+
+    width: 30px; /* Adjust the width as needed */
+
+    height: 30px; /* Same as width for a circle */
+
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 5px; /* Space between label and BodyTag */
+
+    font-size: 18px; /* Adjust font size as needed */
+
+}
+
+
+
+.BodyTag {
+
+    background-color: #e3e3e2;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+    border-radius:15%;
+    min-height: 100px;
+    
+    height: fit-content;
+    border: #000000;
+    border-width: 5px;
+
+
+
+    padding: 5px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center; /* Center items within BodyTag */
+
+}
+
+.homebutton{
+
+
+    background-color: #e3e3e2;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+    border-radius:15%;
+    width: 40px;
+    
+    height: fit-content;
+    border: #000000;
+    border-width: 5px;
+    padding-left: 10px ;
+
+
+
+    padding: 5px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center; /* Center items within BodyTag */
+
+
+}
+
+
+
+    
+
+
+
+    
+    
+    
+    
+    
+    

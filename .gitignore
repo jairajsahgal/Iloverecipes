@@ -1,0 +1,4 @@
+#ignore environment variables
+
+env.json
+*.mov
