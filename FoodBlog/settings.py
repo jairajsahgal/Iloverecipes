@@ -28,9 +28,6 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret('SECRET_KEY')
 
 
-
-#SECRET_KEY = 'django-insecure-6e=#kq^x5vttz)jo9fmh=s=4+m0m=55=^2=to1v$$4@o3r-r64'
-
 DEBUG = True
 
 ALLOWED_HOSTS = []
