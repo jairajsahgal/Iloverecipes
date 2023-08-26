@@ -1,0 +1,37 @@
+[33mcommit 9ffbb4ebed3bdc4e8c097951b7bf99bfccd5d724[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31mheroku/main[m[33m)[m
+Author: Calvin G <calcal56@gmail.com>
+Date:   Sat Aug 26 16:33:02 2023 -0500
+
+    Testing
+    
+    Swapped wsgi in settings.py and procfile to see if it would fix deployment. It didn't so I'm chaning it back here.
+
+[1mdiff --git a/FoodBlog/__pycache__/settings.cpython-311.pyc b/FoodBlog/__pycache__/settings.cpython-311.pyc[m
+[1mindex 5addd1f..d2f48d8 100644[m
+Binary files a/FoodBlog/__pycache__/settings.cpython-311.pyc and b/FoodBlog/__pycache__/settings.cpython-311.pyc differ
+[1mdiff --git a/FoodBlog/settings.py b/FoodBlog/settings.py[m
+[1mindex 6f0d598..997ceaa 100644[m
+[1m--- a/FoodBlog/settings.py[m
+[1m+++ b/FoodBlog/settings.py[m
+[36m@@ -18,6 +18,8 @@[m [mBASE_DIR = Path(__file__).resolve().parent.parent[m
+ with open(os.path.join(BASE_DIR, 'env.json')) as secrets_file:[m
+     secrets = json.load(secrets_file)[m
+ [m
+[32m+[m
+[32m+[m
+ def get_secret(setting, secrets=secrets):[m
+     """Get secret setting or fail with ImproperlyConfigured"""[m
+     try:[m
+[36m@@ -29,10 +31,10 @@[m [mSECRET_KEY = get_secret('SECRET_KEY')[m
+ [m
+ [m
+ [m
+[31m-#SECRET_KEY = 'django-insecure-6e=#kq^x5vttz)jo9fmh=s=4+m0m=55=^2=to1v$$4@o3r-r64'[m
+[31m-[m
+ DEBUG = True[m
+ [m
+[32m+[m
+[32m+[m
+ ALLOWED_HOSTS = [][m
+ [m
+ # Application definition[m
