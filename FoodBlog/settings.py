@@ -15,20 +15,11 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-with open(os.path.join(BASE_DIR, 'env.json')) as secrets_file:
-    secrets = json.load(secrets_file)
 
-
-
-def get_secret(setting, secrets=secrets):
-    """Get secret setting or fail with ImproperlyConfigured"""
-    try:
-        return secrets[setting]
-    except KeyError:
-        raise ImproperlyConfigured("Set the {} setting".format(setting))
-
-SECRET_KEY = get_secret('SECRET_KEY')
-
+DB_PASSWORD= os.environ.get('DB_PASSWORD')
+NAME= os.environ.get('NAME')
+DB_USER= os.environ.get('DB_USER')
+SECRET_KEY=os.environ.get('SECRET_KEY')
 
 
 DEBUG = True
@@ -91,9 +82,9 @@ WSGI_APPLICATION = 'FoodBlog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': get_secret('NAME'),
-        'USER': get_secret('USER'),
-        'PASSWORD': get_secret('DB_PASSWORD'),
+        'NAME': NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {

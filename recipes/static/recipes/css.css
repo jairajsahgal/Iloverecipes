@@ -30,7 +30,11 @@ header {
     display: flex; /* Add this to create a flex container */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
-    width: 350px;
+
+    width:38%;
+
+
+
     height: 40px;
     margin: 10px 0px;
     border: 2px solid #333;
@@ -43,7 +47,11 @@ header {
 
 
 .flexbox-item-entrybox {
+
     background-color: #efecec;
+    width: fill;
+    height: 40px;
+    min-width: 100px;
     border-radius: 8px;
     border-color: rgb(0, 0, 0);
     padding: 0px 15px;
@@ -81,6 +89,9 @@ header {
 
 .flexbox-item-button {
     background-color: #b5f1ae;
+    min-width: 100px;
+    width: fill;
+    height: 40px;
     border: 2px;
     border-radius: 10px 10px 0 0; /* Rounded corners on top */
     padding: 0px;

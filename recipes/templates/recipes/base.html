@@ -17,11 +17,15 @@
     <div class="flexbox-container">
         <div class="flexbox-item flexbox-item-1"><a href="{% url 'recipes:foodblog' %}">Food Blog</a></div>
         <div class="flexbox-item flexbox-item-2"><a href="{% url 'recipes:links' %}">Book Links</a></div>
+
+
         <form id="search-form" action="{% url 'recipes:search_results' %}" method="get">
-            <input class="flexbox-item flexbox-item-entrybox" type="text" name="search_term" autocomplete="off" autofocus="true">
+            <input class="flexbox-item-entrybox" type="text" name="search_term" autocomplete="off" autofocus="true">
         </form>
+
+
         <form id="search-button" action="{% url 'recipes:search_results' %}" method="get">
-        <button class="flexbox-item flexbox-item-button" type="submit">Search</button>
+        <button class="flexbox-item-button" type="submit">Search</button>
         </form>
         
     </div>
