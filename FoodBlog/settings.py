@@ -37,8 +37,10 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # Use S3 for media files storage
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-s3://iloverecipes/book_covers/Image.png
-MEDIA_URL = f's3://{AWS_STORAGE_BUCKET_NAME}'
+#s3://iloverecipes/book_covers/Image.png
+
+#https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.us-east-2.amazonaws.com/media/'
 # Media files (Uploaded files)
 #MEDIA_URL = '/media/'
 
