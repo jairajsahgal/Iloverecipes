@@ -27,7 +27,6 @@ AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME =os.environ.get('S3_BUCKET')
 
-
 # Use S3 for static files storage
 
 STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
@@ -35,15 +34,13 @@ STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-
 # Use S3 for media files storage
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
+s3://iloverecipes/book_covers/Image.png
+MEDIA_URL = f's3://{AWS_STORAGE_BUCKET_NAME}'
 # Media files (Uploaded files)
 #MEDIA_URL = '/media/'
-
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'recipes', 'static','recipes')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'recipes')
