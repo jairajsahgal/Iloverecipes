@@ -3,6 +3,8 @@ from pathlib import Path
 import django_heroku
 import dj_database_url
 from decouple import config
+import boto3
+
 
 import json
 
@@ -15,11 +17,37 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
+#
 DB_PASSWORD= os.environ.get('DB_PASSWORD')
 NAME= os.environ.get('NAME')
 DB_USER= os.environ.get('DB_USER')
 SECRET_KEY=os.environ.get('SECRET_KEY')
+
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME =os.environ.get('S3_BUCKET')
+
+
+# Use S3 for static files storage
+
+STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
+#STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+# Use S3 for media files storage
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
+# Media files (Uploaded files)
+#MEDIA_URL = '/media/'
+
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'recipes', 'static','recipes')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'recipes')
+
 
 
 DEBUG = True
@@ -94,6 +122,7 @@ WSGI_APPLICATION = 'FoodBlog.wsgi.application'
 #    }
 #}
 
+
 DATABASES = { 
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -131,15 +160,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'recipes', 'static','recipes')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'recipes')
-
-# Media files (Uploaded files)
-MEDIA_URL = '/media/'
 
 MEDIA_URL_FROM_HOME= '../media/'
 
