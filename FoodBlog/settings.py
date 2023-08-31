@@ -38,6 +38,8 @@ COMPRESS_URL = 'https://d17usxoyp786nd.cloudfront.net'
 
 # Use S3 for static files storage
 
+STATIC_URL = f"https://{COMPRESS_URL}/static/"
+
 STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
 #STATIC_URL = '/static/'
 #ertsert
