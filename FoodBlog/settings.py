@@ -28,6 +28,8 @@ AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME =os.environ.get('S3_BUCKET')
 
 
+AWS_S3_CUSTOM_DOMAIN= "d17usxoyp786nd.cloudfront.net"
+
 DJANGO_STATIC = True
 
 DJANGO_STATIC_FILE_PROXY = 'cloudfront.file_proxy'
@@ -53,7 +55,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
 #MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.us-east-2.amazonaws.com/media/'
 
-MEDIA_URL='https://d17usxoyp786nd.cloudfront.net'
+MEDIA_URL='/media/'
 # Media files (Uploaded files)
 #MEDIA_URL = '/media/'
 
