@@ -35,7 +35,7 @@ DJANGO_STATIC_FILE_PROXY = 'cloudfront.file_proxy'
 
 COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'
+
 
 # Use S3 for static files storage
 
@@ -53,10 +53,12 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
 #MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.us-east-2.amazonaws.com/media/'
-MEDIA_URL=CLOUDFRONT_URL
-#MEDIA_URL='/media/'
-# Media files (Uploaded files)
-#MEDIA_URL = '/media/'
+
+
+MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
+
+CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'
+AWS_S3_CUSTOM_DOMAIN = CLOUDFRONT_URL
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'recipes', 'static','recipes')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'recipes')
@@ -118,22 +120,6 @@ WSGI_APPLICATION = 'FoodBlog.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': NAME,
-#        'USER': DB_USER,
-#        'PASSWORD': DB_PASSWORD,
-#        'HOST': '127.0.0.1',
-#        'PORT': '3306',
-#        'OPTIONS': {
-#            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-#        }
-#
-#    }
-#}
-
 
 DATABASES = { 
     'default': {
