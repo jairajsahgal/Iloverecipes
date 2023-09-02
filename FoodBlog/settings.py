@@ -41,8 +41,8 @@ CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'
 
 
 #STATIC_URL = f"https://{CLOUDFRONT_URL}/static/"
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
-#STATIC_URL = '/static/'
+#STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
+STATIC_URL = '/static/'
 #ertsert
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
