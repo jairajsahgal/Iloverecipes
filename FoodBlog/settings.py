@@ -11,14 +11,9 @@ import json
 
 from django.core.exceptions import ImproperlyConfigured
 
-
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-#
 DB_PASSWORD= os.environ.get('DB_PASSWORD')
 NAME= os.environ.get('NAME')
 DB_USER= os.environ.get('DB_USER')
@@ -36,20 +31,13 @@ DJANGO_STATIC_FILE_PROXY = 'cloudfront.file_proxy'
 COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-
-# Use S3 for static files storage
-
-
-#STATIC_URL = f"https://{CLOUDFRONT_URL}/static/"
-#STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
 STATIC_URL = '/static/'
-#ertsert
+
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Use S3 for media files storage
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#s3://iloverecipes/book_covers/Image.png
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
 MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com'
