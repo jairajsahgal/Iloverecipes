@@ -52,7 +52,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #s3://iloverecipes/book_covers/Image.png
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
-MEDIA_URL = f's3://{AWS_STORAGE_BUCKET_NAME}'
+MEDIA_URL = 'https://d17usxoyp786nd.cloudfront.net'
 
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
