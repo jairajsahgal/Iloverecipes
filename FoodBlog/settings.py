@@ -46,6 +46,10 @@ MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com'
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
 
 CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'
+
+
+AWS_DEFAULT_ACL='public-read'
+
 AWS_S3_CUSTOM_DOMAIN = CLOUDFRONT_URL
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'recipes', 'static','recipes')]
