@@ -45,7 +45,7 @@
                     <strong>Year:</strong> {{ book.year }}<br>
                     {% if book.cover_photo %}
                         <div class="book-image">
-                            <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}">
+                            <img src="{{ MEDIA_URL }}/{{ book.cover_photo.name }}" alt="{{ book.title }}">
                         </div>
                     {% else %}
                         No image available<br>
