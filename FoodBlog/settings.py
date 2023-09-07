@@ -42,7 +42,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
-MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com'
+MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com/'
 
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
