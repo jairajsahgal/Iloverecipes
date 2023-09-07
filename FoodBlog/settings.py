@@ -42,7 +42,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
-MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com/'
+MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com'
 
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
@@ -63,7 +63,7 @@ DEBUG = True
 
 
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'ilovecookbooks.herokuapp.com']
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -171,4 +171,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
 
-
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
