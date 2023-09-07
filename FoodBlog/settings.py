@@ -4,6 +4,8 @@ import django_heroku
 import dj_database_url
 from decouple import config
 import boto3
+import dj_database_url
+import psycopg2
 
 
 
@@ -113,6 +115,8 @@ WSGI_APPLICATION = 'FoodBlog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = { 
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -166,5 +170,7 @@ print(MEDIA_ROOT)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
+#HEROKU DB
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
