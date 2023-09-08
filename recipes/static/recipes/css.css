@@ -124,7 +124,7 @@ header {
 
 #topbarbackcolor {
     background: linear-gradient(to top, #D8D4BB 97%, transparent 98%);
-    height:1500px;
+    height:fit-content;
 
     /* Adjust the percentages to control the gradient position and transition */
 
