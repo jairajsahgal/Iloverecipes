@@ -122,8 +122,6 @@ header {
     justify-content: center; /* Center items horizontally */
 }
 
-
-
 #topbarbackcolor {
     background: linear-gradient(to top, #D8D4BB 93%, transparent 96%);
     height:565px;
@@ -154,6 +152,27 @@ header {
     padding-top: 10px;
     padding-bottom: 20px;
 
+}
+
+.carousel-container5 {
+    overflow-x: auto;
+    white-space: nowrap;
+    background: none;
+    height: 98%;
+    top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: top;
+    max-width: 100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+}
+
+.flexbox-container6{
+
+    height: 100%;
+    width:100%;
 }
 
 .flexbox-container3 {
