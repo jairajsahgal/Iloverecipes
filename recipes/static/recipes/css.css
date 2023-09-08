@@ -237,6 +237,7 @@ header {
 
 
     object-fit: cover;
+    height: fill;
 
     max-height: 100%; /* Ensure image doesn't exceed column's height */
 
