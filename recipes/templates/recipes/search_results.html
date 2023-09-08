@@ -1,47 +1,54 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     {% load static %}
+
     <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+
     <div><a href="{% url 'recipes:base' %}">base</a></div>
+
     <!-- Your head content here -->
+
 </head>
+
 <body>
-            {% if search_results %}
-            <div class="carousel-container4">
 
+    {% if search_results %}
 
-                <div class="flexbox-container3"> 
-              
-                {% for page in search_results %}
-            
+    <div class="carousel-container4">
 
-                    <div class="page-image">
-                        <strong>Book Title:</strong> {{ page.book.title }}<br>
+        <div class="flexbox-container3">
 
-                        <div class="book-image2">
-    
-                            <img src="{{ MEDIA_URL }}{{ book.objects.title }}" alt="{{ book.title }}">
-        
-                        </div>
+            {% for page in search_results %}
 
+            <div class="page-image">
 
-                    </div>
+                <strong>Book Title:</strong> {{ page.book.title }}<br>
 
-                {% endfor %}
-            {% else %}
-            <p>No results found.</p>
-            {% endif %}
+                <div class="book-image2">
+
+                    <img src="{{ MEDIA_URL }}{{ page.book.cover_photo.name }}" alt="{{ page.book.title }}">
+
+                </div>
+
             </div>
+
+            {% endfor %}
+
         </div>
+
     </div>
 
+    {% else %}
+
+    <p>No results found.</p>
+
+    {% endif %}
 
 </body>
 
-
 </html>
-
-
-

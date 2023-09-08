@@ -1,6 +1,7 @@
 
 from .models import Book, Post, BookPage
 
+
 from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
@@ -104,6 +105,7 @@ def link_view(request):
 
 
 def search_results(request):
+
     search_term = request.GET.get('search_term')
     if search_term:
         search_results = BookPage.objects.filter(keywords__contains=search_term)
@@ -126,6 +128,29 @@ class blogview(ListView):
 class videopage(DetailView):
     model = Post
     template_name = 'videoclass.html'
+
+
+def search_results(request):
+
+    search_term = request.GET.get('search_term')
+
+    search_results = []
+
+
+
+    if search_term:
+
+        search_results = BookPage.objects.filter(keywords__contains=search_term)
+
+        MEDIA_UR='https://iloverecipes.s3.us-east-2.amazonaws.com/'
+
+
+
+    context = {'search_results': search_results, 'MEDIA_URL': MEDIA_UR}
+
+    return render(request, 'search_results.html', context)
+
+
 
 
 
