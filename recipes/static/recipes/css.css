@@ -158,7 +158,7 @@ header {
     overflow-x: auto;
     white-space: nowrap;
     background: none;
-    height: 98%;
+    height: 95%;
     top: 50px;
     display: flex;
     align-items: center;
@@ -166,6 +166,7 @@ header {
     max-width: 100%;
     padding-top: 10px;
     padding-bottom: 20px;
+    
 
 }
 
@@ -173,7 +174,6 @@ header {
 
     height: 100%;
     width:100%;
-    orientation: landscape;
 }
 
 .flexbox-container3 {
@@ -266,6 +266,7 @@ header {
 .titlelabel {
     background-color: #e3e3e2;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
 
     border-radius:4%;
     min-height: 50px;
