@@ -77,11 +77,9 @@
     
                 {% if book.cover_photo %}
     
-                    <div class="book-image2">
-    
-                        <img src="{{ MEDIA_URL }}{{ page.cover_photo.name }}" alt="{{ page.book.title }}">
-    
-                    </div>
+                <div class="book-image">
+                    <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}">
+                </div>
     
                 {% else %}
     
@@ -96,9 +94,6 @@
         {% endfor %}
     
     </div>
-    
-    
-
 
 
 
