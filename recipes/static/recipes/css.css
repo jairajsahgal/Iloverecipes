@@ -173,6 +173,7 @@ header {
 
     height: 100%;
     width:100%;
+    orientation: landscape;
 }
 
 .flexbox-container3 {
