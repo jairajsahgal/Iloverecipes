@@ -20,7 +20,12 @@
                     <div class="page-image">
                         <strong>Book Title:</strong> {{ page.book.title }}<br>
 
-                    <img src="{{ page.page_photo.url }}" alt="Page Photo"><br>
+                        <div class="book-image2">
+    
+                            <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}">
+        
+                        </div>
+
                     </div>
 
                 {% endfor %}
