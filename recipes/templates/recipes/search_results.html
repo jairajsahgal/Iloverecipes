@@ -25,11 +25,11 @@
 
             {% for page in search_results %}
 
-            <div class="page-image">
+            <div class="book-item">
 
                 <strong>Book Title:</strong> {{ page.book.title }}<br>
 
-                <div class="book-image2">
+                <div class="book-image">
 
                     <img src="{{ MEDIA_URL }}{{ page.page_photo.name }}" alt="{{ page.book.title }}">
 
