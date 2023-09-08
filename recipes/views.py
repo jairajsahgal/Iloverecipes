@@ -17,12 +17,16 @@ def Main(request):
 
     recent5 = Book.objects.all()[:5]
 
+    all = Book.objects.all()
+
     pages=BookPage.objects.all()
 
 
     context = {
         'recent': recent5,
         'pages': pages,
+        'all': all,
+
     }
    
     return render(request, 'home.html', context)
