@@ -57,6 +57,31 @@
         </div>
     </div>
 
+
+    <div class="titlelabel">
+        <h3>All Books</h3>
+        </div>
+    
+        <div class="carousel-container4">
+            <div class="flexbox-container3">
+                {% for book in all %}
+                    <div class="book-item">
+                        <strong>Title:</strong> {{ book.title }}<br>
+                        <strong>Year:</strong> {{ book.year }}<br>
+                        {% if book.cover_photo %}
+                            <div class="book-image">
+                                <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}">
+                            </div>
+                        {% else %}
+                            No image available<br>
+                        {% endif %}
+             
+                        <a href="{% url 'recipes:book_detail' pk=book.pk %}">View Details</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
     <div class="titlelabel">
     <h3>All Books</h3>
     </div>
