@@ -8,7 +8,7 @@ import dj_database_url
 import psycopg2
 
 
-
+print("\n\n\n\YOU ARE USING SETTINGS.PY \n\n\n\n")
 import json
 
 from django.core.exceptions import ImproperlyConfigured
