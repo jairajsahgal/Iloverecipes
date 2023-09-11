@@ -42,7 +42,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
-MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com/'
+MEDIA_URL = '/MEDIA/'
 
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
@@ -146,8 +146,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -157,9 +156,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 MEDIA_URL_FROM_HOME= '../media/'
-
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'recipes','media')
 print(MEDIA_ROOT)
@@ -172,7 +169,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
 
 
-DATABASE_URL = os.environ['DATABASE_URL']
-
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
