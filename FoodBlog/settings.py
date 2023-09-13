@@ -49,7 +49,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
 
-CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'
+CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net/'
 
 #S3_URL == #'https://iloverecipes.s3.us-east-2.amazonaws.com/'
 
