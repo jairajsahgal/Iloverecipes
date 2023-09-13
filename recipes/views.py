@@ -140,13 +140,11 @@ def search_results(request):
 
     search_results = []
 
-
-
     if search_term:
 
         search_results = BookPage.objects.filter(keywords__contains=search_term)
 
-        MEDIA_UR='https://iloverecipes.s3.us-east-2.amazonaws.com/'
+        MEDIA_UR='https://d17usxoyp786nd.cloudfront.net/'
 
 
 
