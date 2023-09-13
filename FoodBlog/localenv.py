@@ -26,20 +26,20 @@ AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME =os.environ.get('S3_BUCKET')
 
 
-DJANGO_STATIC = True
+DJANGO_STATIC = False
 
-DJANGO_STATIC_FILE_PROXY = 'cloudfront.file_proxy'
+ # CHECKING FOR THE HTTPS CALL    DJANGO_STATIC_FILE_PROXY = 'cloudfront.file_proxy'
 
 COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 STATIC_URL = '/static/'
 
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+ # CHECKING FOR THE HTTPS CALL    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Use S3 for media files storage
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+ # CHECKING FOR THE HTTPS CALL    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
 MEDIA_URL = '/MEDIA/'
@@ -47,19 +47,12 @@ MEDIA_URL = '/MEDIA/'
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
 
-CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'
 
 
-AWS_DEFAULT_ACL='public-read'
-
-AWS_S3_CUSTOM_DOMAIN = CLOUDFRONT_URL
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'recipes', 'static','recipes')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'recipes')
 
 
-bucketurl='https://iloverecipes.s3.us-east-2.amazonaws.com'
-DEBUG = True
+
+DEBUG = False
 
 
 
@@ -81,7 +74,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
+ # CHECKING FOR THE HTTPS CALL   'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -110,7 +103,6 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'FoodBlog.wsgi.application'
 
 
 # Database
@@ -166,6 +158,5 @@ print(MEDIA_ROOT)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
 
 

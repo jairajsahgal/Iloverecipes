@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+<!--   <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">  --> 
     
     <div id="header">
         
@@ -19,12 +19,12 @@
         <div class="flexbox-item flexbox-item-2"><a href="{% url 'recipes:links' %}">Book Links</a></div>
 
 
-        <form id="search-form" action="{% url 'recipes:search_results' %}" method="get">
+    <!--     <form id="search-form" action="{% url 'recipes:search_results' %}" method="get">  -->
             <input class="flexbox-item-entrybox" type="text" name="search_term" autocomplete="off" autofocus="true">
         </form>
 
 
-        <form id="search-button" action="{% url 'recipes:search_results' %}" method="get">
+     <!--   <form id="search-button" action="{% url 'recipes:search_results' %}" method="get"> -->
         <button class="flexbox-item-button" type="submit">Search</button>
         </form>
         
@@ -45,7 +45,7 @@
                     <strong>Year:</strong> {{ book.year }}<br>
                     {% if book.cover_photo %}
                         <div class="book-image">
-                            <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}">
+                    <!--     <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}">   -->   
                         </div>
                     {% else %}
                         No image available<br>
@@ -70,13 +70,13 @@
                         <strong>Year:</strong> {{ book.year }}<br>
                         {% if book.cover_photo %}
                             <div class="book-image">
-                                <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}">
+                       <!--       <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="{{ book.title }}"> -->  
                             </div>
                         {% else %}
                             No image available<br>
                         {% endif %}
              
-                        <a href="{% url 'recipes:book_detail' pk=book.pk %}">View Details</a>
+                    <!--       <a href="{% url 'recipes:book_detail' pk=book.pk %}">View Details</a>   --> 
                     </div>
                 {% endfor %}
             </div>
@@ -113,7 +113,7 @@
     
             if (searchTerm.trim() !== '') {
     
-                window.location.href = "{% url 'recipes:search_results' %}?search_term=" + encodeURIComponent(searchTerm);
+            //    window.location.href = "{% url 'recipes:search_results' %}?search_term=" + encodeURIComponent(searchTerm);
     
             }
     

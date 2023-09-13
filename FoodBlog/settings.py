@@ -42,12 +42,24 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #https://iloverecipes.s3.us-east-2.amazonaws.com/book_covers/Image.png
-MEDIA_URL = 'https://iloverecipes.s3.us-east-2.amazonaws.com/'
+
+
+
 
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
 
 CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'
+
+#S3_URL == #'https://iloverecipes.s3.us-east-2.amazonaws.com/'
+
+MEDIA_URL = CLOUDFRONT_URL
+
+
+
+CLOUDFRONT_PUB_KEY=os.getenv('CLOUDFRONT_PUB')
+
+CLOUDFRONT_SECRET=os.getenv('CLOUDFRONT_SECRET')
 
 
 AWS_DEFAULT_ACL='public-read'
@@ -56,6 +68,8 @@ AWS_S3_CUSTOM_DOMAIN = CLOUDFRONT_URL
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'recipes', 'static','recipes')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'recipes')
+
+
 
 
 bucketurl='https://iloverecipes.s3.us-east-2.amazonaws.com'
