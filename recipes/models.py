@@ -30,4 +30,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title + '|' + str(self.author)
     
+class WebImgs(models.Model):
+    title= models.CharField(max_length=25)
+    thumbnail= models.ImageField(upload_to='web_imgs/')
+
+    
+    
 
