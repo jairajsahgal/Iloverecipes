@@ -30,7 +30,7 @@ def compress_and_optimize_image(image_field):
 
         # Save the compressed image to the BytesIO object
 
-        img.save(image_io, format='JPEG', quality=80, optimize=True)
+        img.save(image_io, format='JPEG', quality=20, optimize=True)
 
 
 
