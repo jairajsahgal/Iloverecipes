@@ -9,12 +9,16 @@ import sys
 
 
 def main():
-
-    """Run administrative tasks."""
+    """..................IMPORTANT!!!
+    ...............This manage.py file is modified to check if a local environment variable exists. 
+    ...............IF localenv has been declared
+    ...............USE Foodblog.localenv.py 
+    ...............IF NOT localenv
+    ...............use Foodblog.settings.py
+    
+    """
 
     env = os.environ.get('localenv')
-
-    
 
     if env:
 

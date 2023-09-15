@@ -26,12 +26,15 @@ AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME =os.environ.get('S3_BUCKET')
 
 
+CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net/'
+
 DJANGO_STATIC = True
 
 DJANGO_STATIC_FILE_PROXY = 'cloudfront.file_proxy'
 
 COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+COMPRESS_ENABLED= True
+COMPRESS_URL= CLOUDFRONT_URL
 
 STATIC_URL = '/static/'
 
@@ -49,7 +52,7 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 #MEDIA_URL = 'arn:aws:cloudfront::522349786223:distribution/ESJ9TIEAIRTU'
 
-CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net/'
+
 
 #S3_URL == #'https://iloverecipes.s3.us-east-2.amazonaws.com/'
 
@@ -77,6 +80,8 @@ DEBUG = True
 
 
 
+
+
 ALLOWED_HOSTS = ['*',]
 
 
@@ -84,6 +89,7 @@ ALLOWED_HOSTS = ['*',]
 
 INSTALLED_APPS = [
     'recipes',
+    'compressor',
   #  'recipes.apps.RecipesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
