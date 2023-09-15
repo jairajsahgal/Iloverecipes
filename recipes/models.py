@@ -1,15 +1,50 @@
 from PIL import Image
 
+from io import BytesIO
+
 from django.db import models
+
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from django.contrib.auth.models import User
 
 
+
+# Define the updated compress_and_optimize_image function
+
 def compress_and_optimize_image(image_field):
 
-    img = Image.open(image_field.path)
+    if image_field:
 
-    img.save(image_field.path, quality=80, optimize=True)
+        # Open the image using PIL
+
+        img = Image.open(image_field)
+
+
+
+        # Create a BytesIO object to temporarily store the compressed image
+
+        image_io = BytesIO()
+
+
+
+        # Save the compressed image to the BytesIO object
+
+        img.save(image_io, format='JPEG', quality=80, optimize=True)
+
+
+
+        # Save the compressed image back to the same image field
+
+        image_field.file = SimpleUploadedFile(
+
+            image_field.name, image_io.getvalue(), content_type='image/jpeg')
+
+
+
+        # Save the changes to the image field
+
+        image_field.save(image_field.name, image_field.file, save=False)
 
 
 
@@ -33,9 +68,7 @@ class Book(models.Model):
 
         super().save(*args, **kwargs)
 
-        if self.cover_photo:
-
-            compress_and_optimize_image(self.cover_photo)
+        compress_and_optimize_image(self.cover_photo)
 
 
 
@@ -59,9 +92,7 @@ class BookPage(models.Model):
 
         super().save(*args, **kwargs)
 
-        if self.page_photo:
-
-            compress_and_optimize_image(self.page_photo)
+        compress_and_optimize_image(self.page_photo)
 
 
 
@@ -91,9 +122,7 @@ class Post(models.Model):
 
         super().save(*args, **kwargs)
 
-        if self.thumbnail:
-
-            compress_and_optimize_image(self.thumbnail)
+        compress_and_optimize_image(self.thumbnail)
 
 
 
@@ -109,18 +138,4 @@ class WebImgs(models.Model):
 
         super().save(*args, **kwargs)
 
-        if self.thumbnail:
-
-            compress_and_optimize_image(self.thumbnail)
-
-
-
-
-
-
-
-
-
-    
-    
-
+        compress_and_optimize_image(self.thumbnail)
