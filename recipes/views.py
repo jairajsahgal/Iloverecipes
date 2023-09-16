@@ -15,7 +15,7 @@ from django.views.generic import DetailView
 
 def Main(request):
 
-    recent5 = Book.objects.all()[:5]
+    recent5 = Book.objects.all()[5:]
 
     all = Book.objects.all()
 
