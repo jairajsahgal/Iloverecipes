@@ -15,27 +15,32 @@ from django.views.generic import DetailView
 
 def Main(request):
 
-    recent5 = Book.objects.all()[5:]
+    recent5 = Book.objects.order_by('-id')[:5]  # Order by id in descending order to get the latest 5 books
 
-    all = Book.objects.all()
+    all_books = Book.objects.all()
 
-    pages=BookPage.objects.all()
+    pages = BookPage.objects.all()
+
 
 
     context = {
+
         'recent': recent5,
+
         'pages': pages,
-        'all': all,
+
+        'all': all_books,
 
     }
-   
+
     return render(request, 'home.html', context)
 
 
 def base(request):
+        
 
-        #books = Book.objects.all()
-        recent5 = Book.objects.all()[:5]
+        recent5 = Book.objects.order_by('-id')[:5]
+        
         all= Book.objects.all()
         
         pages=BookPage.objects.all()
