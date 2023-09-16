@@ -12,41 +12,6 @@ from django.contrib.auth.models import User
 
 # Define the updated compress_and_optimize_image function
 
-def compress_and_optimize_image(image_field):
-
-    if image_field:
-
-        # Open the image using PIL
-
-        img = Image.open(image_field)
-
-
-
-        # Create a BytesIO object to temporarily store the compressed image
-
-        image_io = BytesIO()
-
-
-
-        # Save the compressed image to the BytesIO object
-
-        img.save(image_io, format='JPEG', quality=20, optimize=True)
-
-
-
-        # Save the compressed image back to the same image field
-
-        image_field.file = SimpleUploadedFile(
-
-            image_field.name, image_io.getvalue(), content_type='image/jpeg')
-
-
-
-        # Save the changes to the image field
-
-        image_field.save(image_field.name, image_field.file, save=False)
-
-
 
 class Book(models.Model):
 
@@ -58,9 +23,7 @@ class Book(models.Model):
 
 
 
-    def __str__(self):
-
-        return self.title
+    
 
 
 
@@ -68,7 +31,15 @@ class Book(models.Model):
 
         super().save(*args, **kwargs)
 
-        compress_and_optimize_image(self.cover_photo)
+        self.compress_and_optimize_image(self.cover_photo)
+    
+    def compress_and_optimize_image(self, image_field):
+        img = Image.open(image_field.path)
+        img.save(image_field.path, quality=20, optimize=True)
+    def __str__(self):
+
+        return self.title
+    
 
 
 
@@ -82,9 +53,7 @@ class BookPage(models.Model):
 
 
 
-    def __str__(self):
-
-        return f"Page {self.pk} of {self.book.title}"
+    
 
 
 
@@ -92,9 +61,14 @@ class BookPage(models.Model):
 
         super().save(*args, **kwargs)
 
-        compress_and_optimize_image(self.page_photo)
+        self.compress_and_optimize_image(self.page_photo)
+    def compress_and_optimize_image(self, image_field):
+        img = Image.open(image_field.path)
+        img.save(image_field.path, quality=20, optimize=True)
 
+    def __str__(self):
 
+        return f"Page {self.pk} of {self.book.title}"
 
 class Post(models.Model):
 
@@ -112,9 +86,7 @@ class Post(models.Model):
 
 
 
-    def __str__(self):
-
-        return self.title + '|' + str(self.author)
+    
 
 
 
@@ -122,9 +94,15 @@ class Post(models.Model):
 
         super().save(*args, **kwargs)
 
-        compress_and_optimize_image(self.thumbnail)
+        self.compress_and_optimize_image(self.thumbnail)
 
+    def compress_and_optimize_image(self, image_field):
+        img = Image.open(image_field.path)
+        img.save(image_field.path, quality=20, optimize=True)
 
+    def __str__(self):
+
+        return self.title + '|' + str(self.author)
 
 class WebImgs(models.Model):
 
@@ -138,4 +116,8 @@ class WebImgs(models.Model):
 
         super().save(*args, **kwargs)
 
-        compress_and_optimize_image(self.thumbnail)
+        self.compress_and_optimize_image(self.thumbnail)
+
+    def compress_and_optimize_image(self, image_field):
+        img = Image.open(image_field.path)
+        img.save(image_field.path, quality=20, optimize=True)
