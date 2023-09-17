@@ -78,20 +78,45 @@ class BookPage(models.Model):
 
 
 
+
+
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.page_photo)
 
-
+    
 
     def compress_and_optimize_image(self, image_field):
 
         img = Image.open(image_field)
 
-        img.save(image_field.path, format='JPEG', quality=20, optimize=True)
+        buffer = BytesIO()
 
+        img.save(buffer, format='JPEG', quality=20, optimize=True)
+
+        buffer.seek(0)
+
+
+
+        file_name = image_field.name
+
+        file_content = ContentFile(buffer.read())
+
+        default_storage.save(file_name, file_content)
+
+
+
+        # Optionally, delete the local file if needed
+
+        # image_field.delete(save=False)
+
+
+
+        # Update the image field with the S3 path
+
+        image_field.name = file_name
 
 
     def __str__(self):
@@ -116,19 +141,45 @@ class Post(models.Model):
 
 
 
+
+
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.thumbnail)
 
-
+    
 
     def compress_and_optimize_image(self, image_field):
 
         img = Image.open(image_field)
 
-        img.save(image_field.path, format='JPEG', quality=20, optimize=True)
+        buffer = BytesIO()
+
+        img.save(buffer, format='JPEG', quality=20, optimize=True)
+
+        buffer.seek(0)
+
+
+
+        file_name = image_field.name
+
+        file_content = ContentFile(buffer.read())
+
+        default_storage.save(file_name, file_content)
+
+
+
+        # Optionally, delete the local file if needed
+
+        # image_field.delete(save=False)
+
+
+
+        # Update the image field with the S3 path
+
+        image_field.name = file_name
 
 
 
