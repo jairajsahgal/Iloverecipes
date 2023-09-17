@@ -4,13 +4,12 @@ from io import BytesIO
 
 from django.db import models
 
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files.storage import default_storage
+
+from django.core.files.base import ContentFile
 
 from django.contrib.auth.models import User
 
-
-
-# Define the updated compress_and_optimize_image function
 
 
 class Book(models.Model):
@@ -23,44 +22,49 @@ class Book(models.Model):
 
 
 
-    
-
-
-
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.cover_photo)
+
     
+
     def compress_and_optimize_image(self, image_field):
-        img = Image.open(image_field.path)
 
-        image_io = BytesIO()
+        img = Image.open(image_field)
 
+        buffer = BytesIO()
 
+        img.save(buffer, format='JPEG', quality=20, optimize=True)
 
-        # Save the compressed image to the BytesIO object
-
-        img.save(image_io, format='JPEG', quality=20, optimize=True)
-
-
-
-        # Save the compressed image back to the same image field
-
-        image_field.file = SimpleUploadedFile(
-
-            image_field.name, image_io.getvalue(), content_type='image/jpeg')
+        buffer.seek(0)
 
 
 
-        # Save the changes to the image field
+        file_name = image_field.name
 
-        image_field.save(image_field.name, image_field.file, save=False)
+        file_content = ContentFile(buffer.read())
+
+        default_storage.save(file_name, file_content)
+
+
+
+        # Optionally, delete the local file if needed
+
+        # image_field.delete(save=False)
+
+
+
+        # Update the image field with the S3 path
+
+        image_field.name = file_name
+
+
+
     def __str__(self):
 
         return self.title
-    
 
 
 
@@ -74,19 +78,27 @@ class BookPage(models.Model):
 
 
 
-
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.page_photo)
+
+
+
     def compress_and_optimize_image(self, image_field):
-        img = Image.open(image_field.path)
-        img.save(image_field.path, quality=20, optimize=True)
+
+        img = Image.open(image_field)
+
+        img.save(image_field.path, format='JPEG', quality=20, optimize=True)
+
+
 
     def __str__(self):
 
         return f"Page {self.pk} of {self.book.title}"
+
+
 
 class Post(models.Model):
 
@@ -104,23 +116,27 @@ class Post(models.Model):
 
 
 
-    
-
-
-
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.thumbnail)
 
+
+
     def compress_and_optimize_image(self, image_field):
-        img = Image.open(image_field.path)
-        img.save(image_field.path, quality=20, optimize=True)
+
+        img = Image.open(image_field)
+
+        img.save(image_field.path, format='JPEG', quality=20, optimize=True)
+
+
 
     def __str__(self):
 
         return self.title + '|' + str(self.author)
+
+
 
 class WebImgs(models.Model):
 
@@ -136,6 +152,10 @@ class WebImgs(models.Model):
 
         self.compress_and_optimize_image(self.thumbnail)
 
+
+
     def compress_and_optimize_image(self, image_field):
-        img = Image.open(image_field.path)
-        img.save(image_field.path, quality=20, optimize=True)
+
+        img = Image.open(image_field)
+
+        img.save(image_field.path, format='JPEG', quality=20, optimize=True)
