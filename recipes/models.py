@@ -35,7 +35,28 @@ class Book(models.Model):
     
     def compress_and_optimize_image(self, image_field):
         img = Image.open(image_field.path)
-        img.save(image_field.path, quality=20, optimize=True)
+
+        image_io = BytesIO()
+
+
+
+        # Save the compressed image to the BytesIO object
+
+        img.save(image_io, format='JPEG', quality=20, optimize=True)
+
+
+
+        # Save the compressed image back to the same image field
+
+        image_field.file = SimpleUploadedFile(
+
+            image_field.name, image_io.getvalue(), content_type='image/jpeg')
+
+
+
+        # Save the changes to the image field
+
+        image_field.save(image_field.name, image_field.file, save=False)
     def __str__(self):
 
         return self.title
@@ -51,9 +72,6 @@ class BookPage(models.Model):
 
     page_photo = models.ImageField(upload_to='book_pages/')
 
-
-
-    
 
 
 
