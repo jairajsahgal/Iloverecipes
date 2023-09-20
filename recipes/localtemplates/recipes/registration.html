@@ -1,0 +1,21 @@
+
+{% block content %}
+
+    <h1>Register</h1>
+    <div class="flexbox-item flexbox-item-5"><a href="{% url 'recipes:login' %}">Already a user? Login</a></div>
+    <br/><br/>
+
+    {% if submitted %}
+        Your event was submitted
+    {% else %}
+        <form action="" method="post">
+            {% csrf_token %}
+
+
+            {{form.as_p}}
+
+
+            <button>Register</button>
+        </form>
+    {% endif %}
+{% endblock %}

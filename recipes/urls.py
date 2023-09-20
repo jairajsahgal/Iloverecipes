@@ -6,6 +6,8 @@ from .views import blogview, videopage, BookDetailView
 from django.conf.urls import *
 from django.urls import path 
 
+from django.contrib import admin
+
 
 
 app_name= "recipes"
@@ -23,6 +25,7 @@ urlpatterns = [
     
 
     path('links/', views.link_view, name='links'),
+
 
 
     path('base/', views.base, name='base'),

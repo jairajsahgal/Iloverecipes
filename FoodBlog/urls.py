@@ -16,6 +16,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.forms import AuthenticationForm
 
+
+print("URLS . PY TRIGGERES")
+
 urlpatterns = [
     path("", include("recipes.urls")),
     path("recipes/", include("recipes.urls")),

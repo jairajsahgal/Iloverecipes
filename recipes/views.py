@@ -129,6 +129,7 @@ class BookDetailView(DetailView):
     model = Book
     template_name = 'book_detail.html'
     context_object_name = 'book'
+    
 
 class blogview(ListView):
     model = Post
@@ -150,6 +151,7 @@ def search_results(request):
         search_results = BookPage.objects.filter(keywords__contains=search_term)
 
         MEDIA_UR='https://d17usxoyp786nd.cloudfront.net/'
+        
 
 
 

@@ -1,0 +1,49 @@
+<div class="titlelabel">
+
+<h1>Videos</h1>
+
+</div>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+
+
+{% for post in object_list %}
+<div class="column2">
+    <div class="object">
+
+        <div class="videotitle">
+            Author: {{post.author}}<br/>
+    
+        </div>
+        <div class="videotitles2">
+            {{post.title}} <br>
+    
+        </div>
+        <div class="videotitles3">
+    {{post.body}}
+    </div>
+    <div class="thumbnail">
+    <img src="{{ MEDIA_URL }}{{ post.thumbnail }}" alt="{{ post.title }}">
+    </div>
+    <a href="{% url 'recipes:details' post.pk %}">view video</a>
+</div>
+
+
+
+</div>
+
+{% endfor %}
+
+<div class="homebutton">
+    <a href="{% url 'recipes:base' %}">Home</a>
+</div>
+
+
+
+
+
+
+
+
+
+

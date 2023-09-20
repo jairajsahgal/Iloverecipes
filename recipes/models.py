@@ -99,7 +99,6 @@ class BookPage(models.Model):
         buffer.seek(0)
 
 
-
         file_name = image_field.name
 
         file_content = ContentFile(buffer.read())
@@ -107,16 +106,7 @@ class BookPage(models.Model):
         default_storage.save(file_name, file_content)
 
 
-
-        # Optionally, delete the local file if needed
-
-        # image_field.delete(save=False)
-
-
-
-        # Update the image field with the S3 path
-
-        image_field.name = file_name
+        image_field.name = file_name  
 
 
     def __str__(self):
@@ -163,21 +153,12 @@ class Post(models.Model):
 
 
 
-        file_name = image_field.name
+        file_name=img.name
 
         file_content = ContentFile(buffer.read())
 
         default_storage.save(file_name, file_content)
 
-
-
-        # Optionally, delete the local file if needed
-
-        # image_field.delete(save=False)
-
-
-
-        # Update the image field with the S3 path
 
         image_field.name = file_name
 
