@@ -12,25 +12,25 @@ from recipes.models import Book, BookPage
 
 from django.core.files.base import ContentFile
 
+from OCR import perform_ocr
 
-
-# Function to compress and optimize the image
-
-"""
-
-C O M P R E S S I O N
-
-───────────────
-
-This function takes an image file path as input, compresses and optimizes it as a JPEG with quality 20,
-
-and returns it as a ContentFile. This is used for reducing the size of images.
-
-───────────────
-
-"""
 
 def compress_and_optimize_image(image_path):
+
+
+    """
+
+    C O M P R E S S I O N
+
+    ───────────────
+
+    This function takes an image file path as input, compresses and optimizes it as a JPEG with quality 20,
+
+    and returns it as a ContentFile. This is used for reducing the size of images.
+
+    ───────────────
+
+    """
 
     img = Image.open(image_path)
 
@@ -43,26 +43,24 @@ def compress_and_optimize_image(image_path):
     return ContentFile(buffer.read(), name=os.path.basename(image_path))
 
 
-
-# Function to create a book
-
-"""
-
-C R E A T E    -|-   B O O K
-
-───────────────
-
-This function opens a file dialog to select an image file (e.g., for a book cover). It extracts the base name
-
-of the file without the extension, compresses the image, and creates a new Book object in Django with the
-
-image as the cover. It returns the newly created book.
-
-───────────────
-
-"""
-
 def create_book():
+
+
+    """
+
+    C R E A T E    -|-   B O O K
+
+    ───────────────
+
+    This function opens a file dialog to select an image file (e.g., for a book cover). It extracts the base name
+
+    of the file without the extension, compresses the image, and creates a new Book object in Django with the
+
+    image as the cover. It returns the newly created book.
+
+    ───────────────
+
+    """
 
     file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.jpg *.jpeg *.png")])
 
@@ -95,23 +93,25 @@ def create_book():
         return new_book  # Return the newly created book
 
 
-"""
 
-R I P   -|-   P A G E S 
-
-───────────────
-
-This function opens a folder dialog to select a folder with image files. It then checks if a Book object
-
-already exists in Django. If a book exists, it associates the selected images as BookPages with the existing
-
-book. If no book exists, it displays an error message.
-
-───────────────
-
-"""
 
 def rip_pages(new_book):
+
+    """
+
+    R I P   -|-   P A G E S 
+
+    ───────────────
+
+    This function opens a folder dialog to select a folder with image files. It then checks if a Book object
+
+    already exists in Django. If a book exists, it associates the selected images as BookPages with the existing
+
+    book. If no book exists, it displays an error message.
+
+    ───────────────
+
+    """
 
     folder_path = filedialog.askdirectory(title="Select a folder with images")
 
@@ -120,6 +120,8 @@ def rip_pages(new_book):
     if folder_path:
 
         image_files = [f for f in os.listdir(folder_path) if f.lower().endswith(('.jpg', '.jpeg', '.png'))]
+
+        
 
 
 
@@ -133,19 +135,25 @@ def rip_pages(new_book):
 
                     image_path = os.path.join(folder_path, image_file)
 
+                    #_.-._.-._ O C R _.-._.-._.-._.-._.-._.-.
+
+                    ocr_result = perform_ocr(image_path)
+
+                    print(ocr_result)
+
+                    #_.-._.-._.-._.-._.-._.-._.-._.-._.-._.-.
+
                     file_name = os.path.splitext(image_file)[0]
 
                     
 
-                    # Compress and optimize the image before using it
+                    # Compress and optimize the image
 
                     compressed_image = compress_and_optimize_image(image_path)
 
-
-
                     # Create a new page and associate it with the newly created book
 
-                    new_page = BookPage(book=new_book, keywords="Page Keywords")  # Customize keywords as needed
+                    new_page = BookPage(book=new_book, keywords=ocr_result)
 
                     new_page.page_photo = compressed_image
 
@@ -154,7 +162,6 @@ def rip_pages(new_book):
 
                     
 
-                # Update the UI with a success message or further actions if needed
 
             else:
 
@@ -173,14 +180,16 @@ def rip_pages(new_book):
     label.config(text="Sweet! Now select another book if you want!")
 
 
-"""
-E N A B L E   -|-  R I P   -|-   P A G E S 
 
-Triggers the rip pages button to become usable.
-
-"""
 
 def enable_rip_pages_button():
+
+    """
+    E N A B L E   -|-  R I P   -|-   P A G E S 
+
+    Triggers the rip pages button to become usable.
+
+    """
     print("Rip pages enables.. meow!")
 
     new_book = create_book()
@@ -196,7 +205,6 @@ def enable_rip_pages_button():
 
 """
 T K I N T E R    -|-   G U I
-
 
    Here is where the tkinter gui gets created.
    We create the frame with bg color #fofofof
