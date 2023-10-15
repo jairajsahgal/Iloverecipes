@@ -15,6 +15,10 @@ import PIL.Image
 from OCR import perform_ocr
 
 
+
+
+
+
 class Book(models.Model):
 
     title = models.CharField(max_length=200)
@@ -66,6 +70,9 @@ class BookPage(models.Model):
     keywords = models.CharField(max_length=5000, blank=True)
 
     page_photo = models.ImageField(upload_to='book_pages/')
+
+
+
 
     def save(self, *args, **kwargs):
 
