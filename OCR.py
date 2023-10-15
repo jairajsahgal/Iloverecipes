@@ -50,14 +50,14 @@ def perform_ocr(file_path):
 
 
 
-# Example usage:
 """
 
-file_path = "C:/Users/calca/Desktop/Books/Pecan Cookery/Pecan_Cookery_4.png"
+file_path = "C:/Users/Username/Desktop/Books/Pecan Cookery/Pecan_Cookery_4.png"
 
 ocr_result = perform_ocr(file_path)
 
 print(ocr_result)
+
 
 """
 

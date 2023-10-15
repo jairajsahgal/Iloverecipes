@@ -8,7 +8,9 @@ from django.urls import path
 
 from django.contrib import admin
 
+admin.site.site_header = "Cookbook layer"
 
+admin.site.index_title= "Create books here"
 
 app_name= "recipes"
 
@@ -31,6 +33,8 @@ urlpatterns = [
     path('base/', views.base, name='base'),
 
     path('search/', views.search_results, name='search_results'),
+
+
 
 
 ]

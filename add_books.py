@@ -145,8 +145,6 @@ def rip_pages(new_book):
 
                     file_name = os.path.splitext(image_file)[0]
 
-                    
-
                     # Compress and optimize the image
 
                     compressed_image = compress_and_optimize_image(image_path)
