@@ -26,7 +26,7 @@ AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME =os.environ.get('S3_BUCKET')
 
 
-CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net/'
+CLOUDFRONT_URL = 'd17usxoyp786nd.cloudfront.net'
 
 DJANGO_STATIC = True
 
@@ -196,3 +196,4 @@ DATABASE_URL = os.environ['DATABASE_URL']
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+

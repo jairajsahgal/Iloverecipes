@@ -96,11 +96,8 @@ admin.site.register(WebImgs, WebImgsAdmin)
 
 
 class BookPageAdmin(admin.ModelAdmin):
-
-
+    
     list_display=('book','keywords','page_photo')
-
-
 
     def save_model(self, request, obj, form, change):
 
@@ -143,37 +140,6 @@ class BookPageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BookPage, BookPageAdmin)
-
-
-
-#class BookPagesAdmin(admin.ModelAdmin):
-#
-#    list_display = ['book', 'keywords', 'page_photo']
-#
-#    list_filter = ['book']
-#
-#    search_fields = ['keywords']
-#
-#    fieldsets = [
-#
-#        ('Book Info', {'fields': ['book', 'keywords', 'page_photo']}),
-#
-#
-#
-#    ]
-#
-#    formfield_overrides = {
-#
-#        models.CharField: {'widget': Textarea(attrs={'rows': 4, 'cols': 3})},  # Customize the Textarea widget
-#
-#
-#
-#    }
-#
-#
-#
-#admin.site.register(BookPage, BookPagesAdmin)
-
 
 
 
