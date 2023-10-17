@@ -15,10 +15,6 @@ import PIL.Image
 from OCR import perform_ocr
 
 
-
-
-
-
 class Book(models.Model):
 
     title = models.CharField(max_length=200)
@@ -71,9 +67,6 @@ class BookPage(models.Model):
 
     page_photo = models.ImageField(upload_to='book_pages/')
 
-
-
-
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
@@ -118,9 +111,6 @@ class Post(models.Model):
     body = models.TextField()
 
     date = models.DateField()
-
-
-
 
 
     def save(self, *args, **kwargs):
@@ -179,6 +169,8 @@ class WebImgs(models.Model):
         img = Image.open(image_field)
 
         img.save(image_field.path, format='JPEG', quality=20, optimize=True)
+
+
 
 
 #        path=self.page_photo.path
