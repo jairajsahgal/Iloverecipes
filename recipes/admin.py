@@ -16,6 +16,9 @@ from .models import Book, Post, WebImgs
 
 
 
+
+
+
 class BookAdmin(admin.ModelAdmin):
 
     list_display = ('title', 'year','cover_photo')
@@ -27,16 +30,6 @@ class BookAdmin(admin.ModelAdmin):
     prepopulated_fields = {'title': ('title',)}
 
     actions = ['compress_cover_photos']
-
-
-
-    def compress_cover_photos(self, request, queryset):
-
-        for book in queryset:
-
-            book.compress_and_optimize_image(book.cover_photo)
-
-        self.message_user(request, "Cover photos compressed and optimized successfully.")
 
 
 
@@ -58,13 +51,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 
-    def compress_thumbnails(self, request, queryset):
 
-        for post in queryset:
-
-            post.compress_and_optimize_image(post.thumbnail)
-
-        self.message_user(request, "Thumbnails compressed and optimized successfully.")
 
 
 
@@ -82,21 +69,11 @@ class WebImgsAdmin(admin.ModelAdmin):
 
 
 
-    def compress_images(self, request, queryset):
-
-        for web_img in queryset:
-
-            web_img.compress_and_optimize_image(web_img.thumbnail)
-
-        self.message_user(request, "Images compressed and optimized successfully.")
-
-
-
 admin.site.register(WebImgs, WebImgsAdmin)
 
 
 class BookPageAdmin(admin.ModelAdmin):
-    
+
     list_display=('book','keywords','page_photo')
 
     def save_model(self, request, obj, form, change):
@@ -105,11 +82,14 @@ class BookPageAdmin(admin.ModelAdmin):
 
         print(custom_keywords)
 
+        
+
+
 
 
         # Get the image field itself
     
-        image_field = form.cleaned_data.get('page_photo')  # Replace 'image_field_name' with the actual field name from your form
+        image_field = form.cleaned_data.get('page_photo')  
 
 
         if image_field:
@@ -139,7 +119,16 @@ class BookPageAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+
+
+
+
+
+
+
+
 admin.site.register(BookPage, BookPageAdmin)
+
 
 
 

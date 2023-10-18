@@ -120,7 +120,6 @@ class Post(models.Model):
         self.compress_and_optimize_image(self.thumbnail)
 
     
-
     def compress_and_optimize_image(self, image_field):
 
         img = Image.open(image_field)

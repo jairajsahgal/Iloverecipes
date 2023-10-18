@@ -2,11 +2,14 @@
 from django.urls import path, include
 
 from . import views
-from .views import blogview, videopage, BookDetailView
+from .views import blogview, videopage, BookDetailView, login_view, register_view
 from django.conf.urls import *
 from django.urls import path 
 
 from django.contrib import admin
+
+
+
 
 admin.site.site_header = "Cookbook layer"
 
@@ -33,6 +36,10 @@ urlpatterns = [
     path('base/', views.base, name='base'),
 
     path('search/', views.search_results, name='search_results'),
+
+    path('login/', views.login_view, name='login'),
+
+    path('register/', views.register_view, name='registration')
 
 
 

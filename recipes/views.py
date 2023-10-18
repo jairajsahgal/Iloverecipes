@@ -2,7 +2,6 @@
 from .models import Book, Post, BookPage
 
 
-from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
 
@@ -11,6 +10,16 @@ from django.views import generic
 from django.urls import reverse_lazy
 
 from django.views.generic import DetailView 
+
+
+from django.contrib.auth import authenticate, login
+
+
+from django.shortcuts import render, redirect
+
+from .forms import RegistrationForm
+
+from django.contrib.auth.models import User
 
 
 def Main(request):
@@ -163,3 +172,71 @@ def search_results(request):
 
 
 
+def login_view(request):
+
+    if request.method == 'POST':
+
+        username = request.POST['username']
+
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+
+
+        if user is not None:
+
+            login(request, user)
+
+            # Redirect to a success page or dashboard
+
+            return render(request,'base.html')
+
+        else:
+
+            # Display an error message
+
+            error_message = "Invalid credentials"
+
+            return render(request, 'Error.html', {'error_message': error_message})
+
+    else:
+
+        return render(request, 'login.html')
+
+
+
+
+def register_view(request):
+
+    if request.method == 'POST':
+
+        form = RegistrationForm(request.POST)
+
+        if form.is_valid():
+
+            # Create a new user account using Django's User model
+
+            user_data = form.cleaned_data
+
+            new_user = User.objects.create_user(
+
+                username=user_data['username'],
+
+                email=user_data['email'],
+
+                password=user_data['password'],
+
+            )
+
+
+
+            return redirect('recipes:login')
+
+    else:
+
+        form = RegistrationForm()
+
+
+
+    return render(request, 'registration.html', {'form': form})

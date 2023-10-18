@@ -3,6 +3,7 @@
 
     <h1>Register</h1>
     <div class="flexbox-item flexbox-item-5"><a href="{% url 'recipes:login' %}">Already a user? Login</a></div>
+    <div class="flexbox-item flexbox-item-5"><a href="{% url 'recipes:base' %}">Go Home</a></div>
     <br/><br/>
 
     {% if submitted %}
@@ -17,5 +18,7 @@
 
             <button>Register</button>
         </form>
+
+
     {% endif %}
 {% endblock %}
