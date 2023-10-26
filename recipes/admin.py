@@ -82,12 +82,6 @@ class BookPageAdmin(admin.ModelAdmin):
 
         print(custom_keywords)
 
-        
-
-
-
-
-        # Get the image field itself
     
         image_field = form.cleaned_data.get('page_photo')  
 
@@ -128,7 +122,7 @@ class BookPageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BookPage, BookPageAdmin)
-
+#update
 
 
 
