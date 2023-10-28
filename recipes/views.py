@@ -21,6 +21,9 @@ from .forms import RegistrationForm
 
 from django.contrib.auth.models import User
 
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 def Main(request):
 
@@ -162,14 +165,9 @@ def search_results(request):
         MEDIA_UR='https://d17usxoyp786nd.cloudfront.net/'
         
 
-
-
     context = {'search_results': search_results, 'MEDIA_URL': MEDIA_UR}
 
     return render(request, 'search_results.html', context)
-
-
-
 
 
 def login_view(request):
@@ -214,9 +212,6 @@ def login_view(request):
 
         return render(request, 'login.html')
 
-
-
-
 def register_view(request):
 
     if request.method == 'POST':
@@ -238,15 +233,22 @@ def register_view(request):
                 password=user_data['password'],
 
             )
+            print(new_user.email)
 
 
+
+            send_mail(
+                f"Welcome {new_user.username}",
+                "Thank you for joining I love cookbooks",
+                "admin@ilovecookbooks.org",
+                [new_user.email],
+                fail_silently=False,
+            )
 
             return redirect('recipes:login')
 
     else:
 
         form = RegistrationForm()
-
-
 
     return render(request, 'registration.html', {'form': form})

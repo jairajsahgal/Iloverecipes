@@ -197,3 +197,9 @@ DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER=os.environ.get('email')
+EMAIL_HOST_PASSWORD=os.environ.get('mailpass')
+EMAIL_USE_TLS= True
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
