@@ -1,10 +1,8 @@
 from django.contrib import admin
 
-from .models import Book, BookPage, Post, WebImgs
+from .models import Book, BookPage, Post, WebImgs,UserBook, UserBookPage, UserProfile
 
 from django.forms import Textarea
-
-
 
 from OCR import perform_ocr
 
@@ -12,18 +10,10 @@ from django.db import models
 
 from django.contrib import admin
 
-from .models import Book, Post, WebImgs
-
-
-
-
-
 
 class BookAdmin(admin.ModelAdmin):
 
     list_display = ('title', 'year','cover_photo')
-
-
 
     search_fields = ('title', 'year')
 
@@ -32,10 +22,7 @@ class BookAdmin(admin.ModelAdmin):
     actions = ['compress_cover_photos']
 
 
-
 admin.site.register(Book, BookAdmin)
-
-
 
 class PostAdmin(admin.ModelAdmin):
 
@@ -49,15 +36,7 @@ class PostAdmin(admin.ModelAdmin):
 
     actions = ['compress_thumbnails']
 
-
-
-
-
-
-
 admin.site.register(Post, PostAdmin)
-
-
 
 class WebImgsAdmin(admin.ModelAdmin):
 
@@ -67,10 +46,7 @@ class WebImgsAdmin(admin.ModelAdmin):
 
     actions = ['compress_images']
 
-
-
 admin.site.register(WebImgs, WebImgsAdmin)
-
 
 class BookPageAdmin(admin.ModelAdmin):
 
@@ -113,16 +89,14 @@ class BookPageAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+admin.site.register(BookPage, BookPageAdmin,)
 
+admin.site.register(UserBook,)
 
+admin.site.register(UserProfile,)
 
+admin.site.register(UserBookPage,)
 
-
-
-
-
-admin.site.register(BookPage, BookPageAdmin)
-#update
 
 
 

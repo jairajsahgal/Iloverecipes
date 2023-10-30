@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
+
+    <title>{{ user_book.title }} Details</title>
+
+</head>
+
+<body>
+
+    <div class="carousel-container4">
+
+        <div class="flexbox-container3">
+
+            {% for user_book_page in user_book_pages %}
+
+                <div class="book-item">
+
+                    <strong>Page {{ user_book_page.order }}:</strong>
+
+                    {% if user_book_page.book_page.page_photo %}
+
+                        <div class="page-image">
+
+                            <img src="{{ user_book_page.book_page.page_photo.url }}" alt="Page {{ user_book_page.book_page.pk }}">
+
+                        </div>
+
+                    {% else %}
+
+                        No image available<br>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+

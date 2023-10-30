@@ -1,29 +1,16 @@
 
-from .models import Book, Post, BookPage
-
-
-
 from django.views.generic import ListView, DetailView
-
-
 from django.views import generic
 from django.urls import reverse_lazy
-
 from django.views.generic import DetailView 
-
-
 from django.contrib.auth import authenticate, login
-
-
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm
-
 from django.contrib.auth.models import User
-
 from django.core.mail import send_mail
 from django.conf import settings
-
+from django.views import View 
+from .models import Book, Post, BookPage,UserProfile,UserBook, UserBookPage, BookPage
 
 def Main(request):
 
@@ -32,8 +19,6 @@ def Main(request):
     all_books = Book.objects.all()
 
     pages = BookPage.objects.all()
-
-
 
     context = {
 
@@ -123,8 +108,6 @@ def link_view(request):
                } 
     return render(request, 'recipes/links.html', context)
 
-
-
 def search_results(request):
 
     search_term = request.GET.get('search_term')
@@ -136,12 +119,10 @@ def search_results(request):
     context = {'search_results': search_results}
     return render(request, 'search_results.html', context)
 
-
 class BookDetailView(DetailView):
     model = Book
     template_name = 'book_detail.html'
     context_object_name = 'book'
-    
 
 class blogview(ListView):
     model = Post
@@ -150,7 +131,6 @@ class blogview(ListView):
 class videopage(DetailView):
     model = Post
     template_name = 'videoclass.html'
-
 
 def search_results(request):
 
@@ -169,7 +149,6 @@ def search_results(request):
 
     return render(request, 'search_results.html', context)
 
-
 def login_view(request):
 
     if request.method == 'POST':
@@ -179,7 +158,6 @@ def login_view(request):
         password = request.POST['password']
 
         user = authenticate(request, username=username, password=password)
-
 
         if user is not None:
 
@@ -233,17 +211,21 @@ def register_view(request):
                 password=user_data['password'],
 
             )
-            print(new_user.email)
 
+            try:
 
+                send_mail(
+                    f"Welcome {new_user.username}",
+                    "Thank you for joining I love cookbooks",
+                    "admin@ilovecookbooks.org",
+                    [new_user.email],
+                    fail_silently=False,
+                )
 
-            send_mail(
-                f"Welcome {new_user.username}",
-                "Thank you for joining I love cookbooks",
-                "admin@ilovecookbooks.org",
-                [new_user.email],
-                fail_silently=False,
-            )
+            except:
+
+                print("sending an email failed")
+            
 
             return redirect('recipes:login')
 
@@ -252,3 +234,42 @@ def register_view(request):
         form = RegistrationForm()
 
     return render(request, 'registration.html', {'form': form})
+
+
+def UserProfileView(request, pk):
+
+    user_profile = UserProfile.objects.get(pk=pk)
+
+    user_books = UserBook.objects.filter(user=user_profile.user)
+
+    context = {
+
+        'user_profile': user_profile,
+
+        'user_books': user_books,
+
+    }
+
+    return render(request, 'User_Profile.html', context)
+
+def user_book_pages(request, user_book_id):
+
+    user_book = get_object_or_404(UserBook, id=user_book_id, user=request.user)
+
+    user_book_pages = UserBookPage.objects.filter(user_book=user_book).order_by('order')
+
+    book_pages = [user_book_page.book_page for user_book_page in user_book_pages]
+
+    context = {
+
+        'user_book': user_book,
+
+        'user_book_pages': user_book_pages,
+
+        'book_pages': book_pages,  # Include the BookPage objects
+
+    }
+
+    return render(request, 'user_books.html', context)
+
+
