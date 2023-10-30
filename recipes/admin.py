@@ -93,7 +93,7 @@ admin.site.register(BookPage, BookPageAdmin,)
 
 admin.site.register(UserBook,)
 
-#admin.site.register(UserProfile,)
+admin.site.register(UserProfile,)
 
 admin.site.register(UserBookPage,)
 
