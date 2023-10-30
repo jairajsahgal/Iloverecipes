@@ -31,6 +31,16 @@
 
         {% endfor %}
 
+        {% for user_book in user_books %}
+
+        <li>
+
+            <a href="{% url 'recipes:user_book_pages' user_book_id=user_book.id %}">View {{ user_book.title }} Pages</a>
+
+        </li>
+
+        {%endfor%}
+
     </ul>
 
 </body>

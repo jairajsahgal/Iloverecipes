@@ -12,6 +12,12 @@ from django.conf import settings
 from django.views import View 
 from .models import Book, Post, BookPage,UserProfile,UserBook, UserBookPage, BookPage
 
+from django.shortcuts import render
+
+from django.http import HttpResponse
+
+from .models import UserBook, UserBookPage
+
 def Main(request):
 
     recent5 = Book.objects.order_by('-id')[:5]  # Order by id in descending order to get the latest 5 books
@@ -238,38 +244,95 @@ def register_view(request):
 
 def UserProfileView(request, pk):
 
-    user_profile = UserProfile.objects.get(pk=pk)
+    try:
 
-    user_books = UserBook.objects.filter(user=user_profile.user)
+        user_profile = UserProfile.objects.get(pk=pk)
 
-    context = {
+        user_books = UserBook.objects.filter(user=user_profile.user)
 
-        'user_profile': user_profile,
+        context = {
 
-        'user_books': user_books,
+            'user_profile': user_profile,
 
-    }
+            'user_books': user_books,
+
+        }
+    except:
+        print("You dont have a profile looooooser!!!")
 
     return render(request, 'User_Profile.html', context)
 
+
 def user_book_pages(request, user_book_id):
 
-    user_book = get_object_or_404(UserBook, id=user_book_id, user=request.user)
+    try:
 
-    user_book_pages = UserBookPage.objects.filter(user_book=user_book).order_by('order')
+        user_book = UserBook.objects.get(id=user_book_id, user=request.user)
+
+        user_book_pages = UserBookPage.objects.filter(user_book=user_book).order_by('order')
+
+        book_pages = [user_book_page.book_page for user_book_page in user_book_pages]
+
+
+
+        context = {
+
+            'user_book': user_book,
+
+            'user_book_pages': user_book_pages,
+
+            'book_pages': book_pages,
+
+        }
+
+
+
+        return render(request, 'user_books.html', context)
+
+    except UserBook.DoesNotExist:
+
+        return HttpResponse("User Book not found or unauthorized", status=404)
+
+
+
+
+
+def user_book_pages(request):
+
+    # Retrieve the UserBook objects for the current user
+
+    user_books = UserBook.objects.filter(user=request.user)
+
+
+
+    # Optionally, you can add further filtering or validation here
+
+
+
+    # Create a list of book pages for each user book
+
+    user_book_pages = []
+
+
+
+    for user_book in user_books:
+
+        user_book_pages.extend(UserBookPage.objects.filter(user_book=user_book).order_by('order'))
+
+
 
     book_pages = [user_book_page.book_page for user_book_page in user_book_pages]
 
-    context = {
 
-        'user_book': user_book,
+
+    context = {
 
         'user_book_pages': user_book_pages,
 
-        'book_pages': book_pages,  # Include the BookPage objects
+        'book_pages': book_pages,
 
     }
 
+
+
     return render(request, 'user_books.html', context)
-
-
