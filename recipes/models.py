@@ -183,19 +183,21 @@ class UserProfile(models.Model):
     
     def compress_and_optimize_image(self, image_field):
 
-        img = Image.open(image_field)
+        if image_field:
 
-        buffer = BytesIO()
+            img = Image.open(image_field)
 
-        img.save(buffer, format='JPEG', quality=20, optimize=True)
+            buffer = BytesIO()
 
-        buffer.seek(0)
+            img.save(buffer, format='JPEG', quality=20, optimize=True)
 
-        file_name= image_field.name
+            buffer.seek(0)
 
-        file_content = ContentFile(buffer.read())
+            file_name = image_field.name
 
-        default_storage.save(file_name, file_content)
+            file_content = ContentFile(buffer.read())
+
+            default_storage.save(file_name, file_content)
 
 
     @receiver(post_save, sender=User)
