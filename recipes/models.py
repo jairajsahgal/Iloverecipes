@@ -170,7 +170,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    user_pic = models.ImageField(upload_to='user_pics', null=True)
+    user_pic = models.ImageField(upload_to='user_pics', null=True, blank=True)
 
     is_verified = models.CharField(max_length=1, default='N')
 
