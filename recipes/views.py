@@ -245,10 +245,15 @@ def register_view(request):
 def UserProfileView(request, pk):
 
     try:
+        print("trying to get user info")
 
         user_profile = UserProfile.objects.get(pk=pk)
 
+        print("user has profile")
+
         user_books = UserBook.objects.filter(user=user_profile.user)
+
+        print("user has books")
 
         context = {
 
@@ -257,7 +262,10 @@ def UserProfileView(request, pk):
             'user_books': user_books,
 
         }
+
     except:
+
+        context={}
         print("You dont have a profile looooooser!!!")
 
     return render(request, 'User_Profile.html', context)
@@ -294,45 +302,3 @@ def user_book_pages(request, user_book_id):
         return HttpResponse("User Book not found or unauthorized", status=404)
 
 
-
-
-
-def user_book_pages(request):
-
-    # Retrieve the UserBook objects for the current user
-
-    user_books = UserBook.objects.filter(user=request.user)
-
-
-
-    # Optionally, you can add further filtering or validation here
-
-
-
-    # Create a list of book pages for each user book
-
-    user_book_pages = []
-
-
-
-    for user_book in user_books:
-
-        user_book_pages.extend(UserBookPage.objects.filter(user_book=user_book).order_by('order'))
-
-
-
-    book_pages = [user_book_page.book_page for user_book_page in user_book_pages]
-
-
-
-    context = {
-
-        'user_book_pages': user_book_pages,
-
-        'book_pages': book_pages,
-
-    }
-
-
-
-    return render(request, 'user_books.html', context)

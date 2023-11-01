@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Book, BookPage, Post, WebImgs,UserBook, UserBookPage, UserProfile
+from .models import Book, BookPage, Post, WebImgs,UserBook, UserBookPage, UserProfile, DefaultUserProfilePicture
 
 from django.forms import Textarea
 
@@ -96,6 +96,8 @@ admin.site.register(UserBook,)
 admin.site.register(UserProfile,)
 
 admin.site.register(UserBookPage,)
+
+admin.site.register(DefaultUserProfilePicture)
 
 
 

@@ -20,6 +20,9 @@ from django.dispatch import receiver
 
 from OCR import perform_ocr
 
+
+
+
 class Book(models.Model):
 
     title = models.CharField(max_length=200)
@@ -166,6 +169,9 @@ class WebImgs(models.Model):
 
         img.save(image_field.path, format='JPEG', quality=20, optimize=True)
 
+
+
+
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -174,24 +180,47 @@ class UserProfile(models.Model):
 
     is_verified = models.CharField(max_length=1, default='N')
 
+
+
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.user_pic)
 
-    
+
+
     def compress_and_optimize_image(self, image_field):
 
         if image_field:
 
             img = Image.open(image_field)
 
+            
+
+            # Determine the format of the image (JPEG or PNG)
+
+            if img.format in ('JPEG', 'JPG'):
+
+                format = 'JPEG'
+
+            elif img.format == 'PNG':
+
+                format = 'PNG'
+
+            else:
+
+                format = 'JPEG'  # Default to JPEG if format is not recognized
+
+            
+
             buffer = BytesIO()
 
-            img.save(buffer, format='JPEG', quality=20, optimize=True)
+            img.save(buffer, format=format, quality=20, optimize=True)
 
             buffer.seek(0)
+
+
 
             file_name = image_field.name
 
@@ -200,13 +229,24 @@ class UserProfile(models.Model):
             default_storage.save(file_name, file_content)
 
 
+
     @receiver(post_save, sender=User)
 
     def create_user_profile(sender, instance, created, **kwargs):
 
         if created:
 
-            UserProfile.objects.create(user=instance)
+            user_profile = UserProfile.objects.create(user=instance)
+
+            # Assign the default user profile picture here
+
+            default_profile_pic = DefaultUserProfilePicture.objects.get(name='Default_1')
+
+            user_profile.user_pic = default_profile_pic.image
+
+            user_profile.save()
+
+
 
     @receiver(post_save, sender=User)
 
@@ -242,6 +282,19 @@ class UserBookPage(models.Model):
 
         super(UserBookPage, self).save(*args, **kwargs)
 
+
+
+class DefaultUserProfilePicture(models.Model):
+
+    name = models.CharField(max_length=255, unique=True)
+
+    image = models.ImageField(upload_to='default_profile_pics/')
+
+
+
+    def __str__(self):
+
+        return self.name
 
 
 
