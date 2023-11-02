@@ -12,15 +12,19 @@
 
             {% for page in book.pages.all %}
                 <div class="book-item">
-                    <strong>Page {{ page.page_photo }}:</strong>
+                    <strong><a href="{% url 'recipes:page_view' page.id book.id %}">Details</a></strong>
                     {% if page.page_photo %}
                         <div class="page-image">
                             <img src="{{ MEDIA_URL }}{{ page.page_photo.name }}" alt="Page {{ page.pk }}">
                         </div>
+
                     {% else %}
                         No image available<br>
+
+                    
                     {% endif %}
                 </div>
+               
             {% endfor %}
         </div>
     </div>

@@ -302,3 +302,19 @@ def user_book_pages(request, user_book_id):
         return HttpResponse("User Book not found or unauthorized", status=404)
 
 
+
+def page_view(request, page_id, book_id):
+
+    page = get_object_or_404(BookPage, pk=page_id)
+
+    book = get_object_or_404(Book, pk=book_id)
+
+    context = {
+
+        'page': page,
+
+        'book': book,
+
+    }
+
+    return render(request, 'page_view.html', context)

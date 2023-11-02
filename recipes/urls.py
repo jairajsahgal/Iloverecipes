@@ -36,6 +36,8 @@ urlpatterns = [
 
     path('user_books/<int:user_book_id>/', views.user_book_pages, name='user_book_pages'),
 
+    path('page/<int:page_id>/book/<int:book_id>/', views.page_view, name='page_view')
+
 ]
 
 
