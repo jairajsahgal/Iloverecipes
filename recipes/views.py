@@ -300,7 +300,17 @@ def user_book_pages(request, user_book_id):
     except UserBook.DoesNotExist:
 
         return HttpResponse("User Book not found or unauthorized", status=404)
+    
 
+
+
+
+
+from django.http import HttpResponse, HttpResponseRedirect
+
+from django.urls import reverse
+
+from .forms import SavePageForm
 
 
 def page_view(request, page_id, book_id):
@@ -309,12 +319,54 @@ def page_view(request, page_id, book_id):
 
     book = get_object_or_404(Book, pk=book_id)
 
+
+
+    if request.method == 'POST':
+
+        form = SavePageForm(request.POST)
+
+        if form.is_valid():
+
+            user_book = form.cleaned_data['user_book']
+
+            user_book_page, created = UserBookPage.objects.get_or_create(
+
+                user_book=user_book,
+
+                book_page=page
+
+            )
+
+            if created:
+
+                # Page added to the user's book
+
+                return HttpResponse("Page saved to your User Book.")
+
+            else:
+
+                # Page already exists in the user's book
+
+                return HttpResponse("Page already exists in your User Book.")
+
+
+
+    else:
+
+        form = SavePageForm()
+
+
+
     context = {
 
         'page': page,
 
         'book': book,
 
+        'form': form,
+
     }
+
+
 
     return render(request, 'page_view.html', context)

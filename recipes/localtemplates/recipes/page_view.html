@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -15,13 +14,9 @@
 
 <body>
 
-
-
     <div class="page-container">
 
         <h1>Page Details</h1>
-
-
 
         <div class="page-image">
 
@@ -29,18 +24,25 @@
 
         </div>
 
-
-
         <p><strong>Page ID:</strong> {{ page.pk }}</p>
 
         <p><strong>Keywords:</strong> {{ page.keywords }}</p>
 
 
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Save Page to User Book</button>
+
+        </form>
+
         <a href="{% url 'recipes:book_detail' book.pk %}">Back to {{ book.title }} Details</a>
 
     </div>
-
-
 
 </body>
 
