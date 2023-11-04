@@ -261,8 +261,25 @@ class UserBook(models.Model):
 
     title = models.CharField(max_length=200)
 
-    pages = models.ManyToManyField(BookPage, through='UserBookPage')  # Create a many-to-many relationship
+    pages = models.ManyToManyField(BookPage, through='UserBookPage')
 
+
+
+    def save(self, *args, **kwargs):
+
+        if not self.title:
+
+            self.title = f"{self.user.username}_{self.title}"
+
+
+
+        super(UserBook, self).save(*args, **kwargs)
+
+
+
+    def __str__(self):
+
+        return self.title
 
 class UserBookPage(models.Model):
 
@@ -281,6 +298,8 @@ class UserBookPage(models.Model):
             self.order = existing_pages.count() + 1
 
         super(UserBookPage, self).save(*args, **kwargs)
+
+    
 
 
 

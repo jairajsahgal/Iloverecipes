@@ -4,7 +4,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.views.generic import DetailView 
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from .forms import RegistrationForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -242,75 +242,113 @@ def register_view(request):
     return render(request, 'registration.html', {'form': form})
 
 
+
+
+from .forms import UserBookForm, DeleteUserBookForm
+
+
 def UserProfileView(request, pk):
 
-    try:
-        print("trying to get user info")
+    user_profile = UserProfile.objects.get(pk=pk)
 
-        user_profile = UserProfile.objects.get(pk=pk)
+    user_books = UserBook.objects.filter(user=user_profile.user)
 
-        print("user has profile")
 
-        user_books = UserBook.objects.filter(user=user_profile.user)
 
-        print("user has books")
+    create_form = UserBookForm(request.POST if request.method == 'POST' else None) 
 
-        context = {
+    delete_form = DeleteUserBookForm()
 
-            'user_profile': user_profile,
+    print('views!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-            'user_books': user_books,
 
-        }
 
-    except:
+    if request.method == 'POST':
+        print("view trigggereed")
 
-        context={}
-        print("You dont have a profile looooooser!!!")
+        if 'create_book' in request.POST:
+
+            create_form= UserBookForm(request.POST)
+
+            print('Create Triggered in VIEWS')
+
+            if create_form.is_valid():
+                print("create form valid")
+
+                user_book = create_form.save(commit=False)
+
+                user_book.user = request.user
+
+                user_book.save()
+
+                return HttpResponseRedirect(request.path_info)
+
+        elif 'delete_book' in request.POST:
+
+            delete_form = DeleteUserBookForm(request.POST)
+
+            if delete_form.is_valid():
+
+                user_book = delete_form.cleaned_data['user_book']
+
+                user_book.delete()
+
+                return HttpResponseRedirect(request.path_info)
+
+
+
+    context = {
+
+        'user_profile': user_profile,
+
+        'user_books': user_books,
+
+        'create_form': create_form,
+
+        'delete_form': delete_form,
+
+    }
+
+
 
     return render(request, 'User_Profile.html', context)
 
 
+
+
+
+
+
+
 def user_book_pages(request, user_book_id):
 
-    try:
+    user_book = get_object_or_404(UserBook, id=user_book_id)
 
-        user_book = UserBook.objects.get(id=user_book_id, user=request.user)
+    user_book_pages = user_book.userbookpage_set.all().order_by('order')
 
-        user_book_pages = UserBookPage.objects.filter(user_book=user_book).order_by('order')
-
-        book_pages = [user_book_page.book_page for user_book_page in user_book_pages]
+    book_pages = [user_book_page.book_page for user_book_page in user_book_pages]
 
 
 
-        context = {
+    context = {
 
-            'user_book': user_book,
+        'user_book': user_book,
 
-            'user_book_pages': user_book_pages,
+        'user_book_pages': user_book_pages,
 
-            'book_pages': book_pages,
+        'book_pages': book_pages,
 
-        }
-
-
-
-        return render(request, 'user_books.html', context)
-
-    except UserBook.DoesNotExist:
-
-        return HttpResponse("User Book not found or unauthorized", status=404)
-    
+    }
 
 
 
+    return render(request, 'user_books.html', context)
 
 
-from django.http import HttpResponse, HttpResponseRedirect
-
-from django.urls import reverse
 
 from .forms import SavePageForm
+
+import time
 
 
 def page_view(request, page_id, book_id):
@@ -339,15 +377,11 @@ def page_view(request, page_id, book_id):
 
             if created:
 
-                # Page added to the user's book
 
-                return HttpResponse("Page saved to your User Book.")
-
+                return redirect('recipes:book_detail', pk=book.id)  # Redirect to the book detail view
+            
             else:
-
-                # Page already exists in the user's book
-
-                return HttpResponse("Page already exists in your User Book.")
+                HttpResponse("Page was not saved. I'm sorry :'(")
 
 
 
@@ -367,6 +401,6 @@ def page_view(request, page_id, book_id):
 
     }
 
-
-
     return render(request, 'page_view.html', context)
+
+

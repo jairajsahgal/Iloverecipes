@@ -17,3 +17,19 @@ class RegistrationForm(forms.Form):
 class SavePageForm(forms.Form):
 
     user_book = forms.ModelChoiceField(queryset=UserBook.objects.all(), empty_label=None, label="Select User Book")
+
+
+class UserBookForm(forms.ModelForm):
+
+    class Meta:
+
+        model = UserBook
+
+        fields = ['title']
+
+
+
+class DeleteUserBookForm(forms.Form):
+
+    user_book = forms.ModelChoiceField(queryset=UserBook.objects.all(), empty_label=None, label="Select User Book")
+

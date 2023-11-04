@@ -27,15 +27,9 @@
 
         {% for user_book in user_books %}
 
-            <li>{{ user_book.title }}</li>
-
-        {% endfor %}
-
-        {% for user_book in user_books %}
-
         <li>
 
-            <a href="{% url 'recipes:user_book_pages' user_book_id=user_book.id %}">View {{ user_book.title }} Pages</a>
+            <a href="{% url 'recipes:user_book_pages' user_book_id=user_book.id %}">{{ user_book.title }}</a>
 
         </li>
 
@@ -43,6 +37,31 @@
 
     </ul>
 
+    
+    <h2>Create a New User Book:</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ create_form.as_p }}
+
+        <button type="submit" name="create_book">Create User Book</button>
+
+    </form>
+
+
+    <h2>Delete User Book:</h2>
+
+    <form method="post">
+    
+        {% csrf_token %}
+    
+        {{ delete_form.as_p }}
+    
+        <button type="submit" name="delete_book">Delete User Book</button>
+    
+    </form>
 </body>
 
 </html>
