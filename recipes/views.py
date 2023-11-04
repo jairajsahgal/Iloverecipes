@@ -253,8 +253,6 @@ def UserProfileView(request, pk):
 
     user_books = UserBook.objects.filter(user=user_profile.user)
 
-
-
     create_form = UserBookForm(request.POST if request.method == 'POST' else None) 
 
     delete_form = DeleteUserBookForm()
@@ -320,13 +318,39 @@ def UserProfileView(request, pk):
 
 
 
+from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import DeleteUserBookPageForm
+
+
+
 def user_book_pages(request, user_book_id):
 
     user_book = get_object_or_404(UserBook, id=user_book_id)
 
     user_book_pages = user_book.userbookpage_set.all().order_by('order')
 
-    book_pages = [user_book_page.book_page for user_book_page in user_book_pages]
+
+
+    if request.method == 'POST':
+
+        delete_form = DeleteUserBookPageForm(request.POST)
+
+
+
+        if delete_form.is_valid():
+
+            user_book_page_id = delete_form.cleaned_data['user_book_page_id']
+
+            user_book_page = get_object_or_404(UserBookPage, id=user_book_page_id)
+
+            user_book_page.delete()
+
+
+
+    else:
+
+        delete_form = DeleteUserBookPageForm()
 
 
 
@@ -336,13 +360,15 @@ def user_book_pages(request, user_book_id):
 
         'user_book_pages': user_book_pages,
 
-        'book_pages': book_pages,
+        'delete_form': delete_form,
 
     }
 
 
 
     return render(request, 'user_books.html', context)
+
+
 
 
 

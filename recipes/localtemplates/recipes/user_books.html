@@ -8,21 +8,29 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
 
-    <title>{{ user_book.title }} Details</title>
+    <!-- Add your HTML head content here -->
 
 </head>
 
 <body>
 
+    <h1>User Book Pages</h1>
+
+
+
     <div class="carousel-container4">
 
         <div class="flexbox-container3">
+
+
 
             {% for user_book_page in user_book_pages %}
 
                 <div class="book-item">
 
-                    <strong>Page {{ user_book_page.order }}:</strong>
+                    Page {{ user_book_page.order }}:
+
+
 
                     {% if user_book_page.book_page.page_photo %}
 
@@ -30,24 +38,43 @@
 
                             <img src="{{ user_book_page.book_page.page_photo.url }}" alt="Page {{ user_book_page.book_page.pk }}">
 
+                            <form method="post" action="">
+
+                                {% csrf_token %}
+
+                                <input type="hidden" name="user_book_page_id" value="{{ user_book_page.id }}">
+
+                                <button type="submit">Delete Page</button>
+
+                            </form>
+
                         </div>
+                    </div>
 
                     {% else %}
 
-                        No image available<br>
+                        No image available
 
-                    {% endif %}
+                    {% endif }
 
-                </div>
+            
+
+                {% endif%}
 
             {% endfor %}
+       
 
         </div>
-
+        
     </div>
 
+
+
+
+
 </body>
+<a href="{% url 'recipes:base' %}">Go Home</a>
+
 
 </html>
-
 

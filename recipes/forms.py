@@ -19,6 +19,8 @@ class SavePageForm(forms.Form):
     user_book = forms.ModelChoiceField(queryset=UserBook.objects.all(), empty_label=None, label="Select User Book")
 
 
+
+
 class UserBookForm(forms.ModelForm):
 
     class Meta:
@@ -33,3 +35,6 @@ class DeleteUserBookForm(forms.Form):
 
     user_book = forms.ModelChoiceField(queryset=UserBook.objects.all(), empty_label=None, label="Select User Book")
 
+class DeleteUserBookPageForm(forms.Form):
+
+    user_book_page_id = forms.IntegerField(widget=forms.HiddenInput())

@@ -264,13 +264,11 @@ class UserBook(models.Model):
     pages = models.ManyToManyField(BookPage, through='UserBookPage')
 
 
-
     def save(self, *args, **kwargs):
 
         if not self.title:
 
             self.title = f"{self.user.username}_{self.title}"
-
 
 
         super(UserBook, self).save(*args, **kwargs)
