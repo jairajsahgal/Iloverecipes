@@ -1,0 +1,76 @@
+<!-- default_profile_images.html -->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Change Profile Picture</title>
+
+</head>
+
+<body>
+
+    <h1>Change Profile Picture</h1>
+
+    
+
+    <!-- Display the current user's profile picture -->
+
+    <img src="{{ user_profile.user_pic.url }}" alt="User Profile Picture">
+
+    
+
+    <!-- Form for changing the user profile picture -->
+
+    <form method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Change Profile Picture">
+
+    </form>
+
+    
+
+    <h2>Choose a Default Profile Picture</h2>
+
+    
+
+    <!-- Display the default profile pictures with buttons to set them -->
+
+    <ul>
+
+        {% for pic in default_pics %}
+
+            <li>
+
+                <img src="{{ pic.image.url }}" alt="{{ pic.name }}">
+
+                <form method="post" action="{% url 'recipes:default_profile_images' %}">
+
+                    {% csrf_token %}
+
+                    <input type="hidden" name="default_pic" value="{{ pic.id }}">
+
+                    <input type="submit" value="Set as Profile Picture">
+
+                </form>
+
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+</body>
+
+</html>
+
+
+
+
+

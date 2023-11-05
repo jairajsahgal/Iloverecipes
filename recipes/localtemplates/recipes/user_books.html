@@ -16,13 +16,9 @@
 
     <h1>User Book Pages</h1>
 
-
-
     <div class="carousel-container4">
 
         <div class="flexbox-container3">
-
-
 
             {% for user_book_page in user_book_pages %}
 
@@ -30,51 +26,48 @@
 
                     Page {{ user_book_page.order }}:
 
-
-
                     {% if user_book_page.book_page.page_photo %}
 
                         <div class="page-image">
 
                             <img src="{{ user_book_page.book_page.page_photo.url }}" alt="Page {{ user_book_page.book_page.pk }}">
 
-                            <form method="post" action="">
+                            
 
-                                {% csrf_token %}
+                            <!-- Display the delete form only if the current user is the owner -->
 
-                                <input type="hidden" name="user_book_page_id" value="{{ user_book_page.id }}">
+                            {% if user_book.user == request.user %}
 
-                                <button type="submit">Delete Page</button>
+                                <form method="post" action="">
 
-                            </form>
+                                    {% csrf_token %}
+
+                                    <input type="hidden" name="user_book_page_id" value="{{ user_book_page.id }}">
+
+                                    <button type="submit">Delete Page</button>
+
+                                </form>
+
+                            {% endif %}
 
                         </div>
-                    </div>
 
                     {% else %}
 
                         No image available
 
-                    {% endif }
+                    {% endif %}
 
-            
-
-                {% endif%}
+                </div>
 
             {% endfor %}
-       
 
         </div>
-        
+
     </div>
 
-
-
-
+    <a href="{% url 'recipes:base' %}">Go Home</a>
 
 </body>
-<a href="{% url 'recipes:base' %}">Go Home</a>
-
 
 </html>
-

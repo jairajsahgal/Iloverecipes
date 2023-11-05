@@ -253,25 +253,29 @@ def UserProfileView(request, pk):
 
     user_books = UserBook.objects.filter(user=user_profile.user)
 
-    create_form = UserBookForm(request.POST if request.method == 'POST' else None) 
 
-    delete_form = DeleteUserBookForm()
 
-    print('views!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    # Pass the current user to the form
+
+    delete_form = DeleteUserBookForm(request.user, request.POST if request.method == 'POST' else None)
+
+    create_form = UserBookForm()
 
 
 
     if request.method == 'POST':
-        print("view trigggereed")
 
         if 'create_book' in request.POST:
 
-            create_form= UserBookForm(request.POST)
+            # Check the user's book count before creating a new one
 
-            print('Create Triggered in VIEWS')
+            if user_books.count() >= 12:
+
+                return redirect(request.path_info)  # Redirect to the user's profile page
+
+            create_form = UserBookForm(request.POST)
 
             if create_form.is_valid():
-                print("create form valid")
 
                 user_book = create_form.save(commit=False)
 
@@ -283,15 +287,19 @@ def UserProfileView(request, pk):
 
         elif 'delete_book' in request.POST:
 
-            delete_form = DeleteUserBookForm(request.POST)
+            # Handle delete_book action here
 
-            if delete_form.is_valid():
+            user_book_id = request.POST.get('user_book', None)
 
-                user_book = delete_form.cleaned_data['user_book']
+            if user_book_id:
 
-                user_book.delete()
+                user_book = UserBook.objects.filter(user=request.user, id=user_book_id).first()
 
-                return HttpResponseRedirect(request.path_info)
+                if user_book:
+
+                    user_book.delete()
+
+            return redirect(request.path_info)  # Redirect to the same page after delete
 
 
 
@@ -323,6 +331,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import DeleteUserBookPageForm
 
 
+from django.http import HttpResponseForbidden
+
 
 def user_book_pages(request, user_book_id):
 
@@ -344,9 +354,19 @@ def user_book_pages(request, user_book_id):
 
             user_book_page = get_object_or_404(UserBookPage, id=user_book_page_id)
 
-            user_book_page.delete()
 
 
+            # Check if the logged-in user is the owner of the user book
+
+            if user_book.user == request.user:
+
+                user_book_page.delete()
+
+            else:
+
+                return HttpResponseForbidden("You are not the owner of this user book, so you can't delete pages.")
+
+    
 
     else:
 
@@ -429,4 +449,87 @@ def page_view(request, page_id, book_id):
 
     return render(request, 'page_view.html', context)
 
+
+from django.contrib import messages
+
+from django.shortcuts import render, redirect
+
+from .models import DefaultUserProfilePicture
+from .forms import UserProfilePicChangeForm
+
+from django.shortcuts import render, redirect
+
+from .models import UserProfile, DefaultUserProfilePicture
+
+from .forms import UserProfilePicChangeForm
+
+
+from django.shortcuts import render, redirect
+
+from .models import UserProfile, DefaultUserProfilePicture
+
+from .forms import UserProfilePicChangeForm
+
+
+
+def default_profile_images(request):
+
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    
+    if request.method == 'POST':
+
+        form = UserProfilePicChangeForm(request.POST, request.FILES)
+
+        if form.is_valid():
+
+
+            default_pic_id = request.POST.get('default_pic')
+            print(default_pic_id)
+
+            if default_pic_id:
+
+                print('DEFAULT WAS SELECTED')
+
+                default_pic = DefaultUserProfilePicture.objects.get(pk=default_pic_id)
+
+                user_profile.user_pic = default_pic.image
+
+                user_profile.save()
+
+            else:
+   
+                if 'user_pic' in request.FILES:
+
+                    print("USER PICTURE UPLOADED")
+
+                    user_profile.user_pic = form.cleaned_data['user_pic']
+
+                    user_profile.save()
+
+            return redirect('recipes:default_profile_images')
+
+    else:
+
+        form = UserProfilePicChangeForm()
+
+
+
+    default_pics = DefaultUserProfilePicture.objects.all()
+
+
+
+    context = {
+
+        'user_profile': user_profile,
+
+        'form': form,
+
+        'default_pics': default_pics,
+
+    }
+
+    
+
+    return render(request, 'default_profile_images.html', context)
 

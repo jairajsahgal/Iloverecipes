@@ -19,6 +19,12 @@
 
     <img src="{{ user_profile.user_pic.url }}" alt="User Profile Pic">
 
+    {% if user_profile.user == request.user %}
+
+    <a href="{% url 'recipes:default_profile_images' %}">Change_Photo</a>
+    {%endif%}
+
+
     <p><strong>Is Verified:</strong> {{ user_profile.is_verified }}</p>
 
     <h2>User's Books:</h2>
@@ -38,6 +44,9 @@
     </ul>
 
     
+    {% if user_profile.user == request.user %}
+
+
     <h2>Create a New User Book:</h2>
 
     <form method="post">
@@ -54,14 +63,16 @@
     <h2>Delete User Book:</h2>
 
     <form method="post">
-    
+
         {% csrf_token %}
-    
+
         {{ delete_form.as_p }}
-    
+
         <button type="submit" name="delete_book">Delete User Book</button>
-    
+
     </form>
+
+{% endif %}
 
     <a href="{% url 'recipes:base' %}">Go Home</a>
 </body>
