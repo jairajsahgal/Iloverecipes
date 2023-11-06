@@ -26,7 +26,7 @@ AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME =os.environ.get('S3_BUCKET')
 
 
-CLOUDFRONT_URL = 'https://d17usxoyp786nd.cloudfront.net'  #TOOK OUT A / 11/6/23
+CLOUDFRONT_URL = 'd17usxoyp786nd.cloudfront.net/'  #TOOK OUT A / 11/6/23
 
 DJANGO_STATIC = True
 
