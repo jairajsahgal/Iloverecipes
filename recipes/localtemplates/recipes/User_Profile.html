@@ -219,7 +219,7 @@
 
             <div class="user-pic">
 
-                <img src="{{ user_profile.user_pic.url }}" alt="User Profile Pic">
+                <img src="{{ MEDIA_URL }}{{ user_profile.user_pic.url }}" alt="User Profile Pic">
 
                 {% if user_profile.user == request.user %}
 
