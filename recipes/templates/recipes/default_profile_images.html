@@ -60,7 +60,19 @@
 
         }
 
+        .homelink{
+
+        background: linear-gradient(#D8D4BB, #8f8f8f);
+        width: fit-content;
+        padding:10px;
+
+        border-radius: 10px 10px 10px 10px; /* Rounded corners on top */
+
+        }
+
+
     </style>
+
 
 </head>
 
@@ -87,6 +99,8 @@
         <input type="submit" value="Change Profile Picture">
 
     </form>
+
+    <div class="homelink"><a href="{% url 'recipes:Home' %}">Go Home</a></div>
 
 
 
