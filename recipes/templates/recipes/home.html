@@ -4,7 +4,7 @@
 <div class="book-list">
     {% for book in books %}
         <div class="book-item">
-            <a href="{% url 'recipes:book_detail' book.pk %}">{{ book.title }}</a>
+            <img src="/media/{{ book.cover_photo.name }}" alt="{{ book.title }}"> 
   
         </div>
     {% endfor %}
