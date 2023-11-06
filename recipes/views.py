@@ -1,22 +1,20 @@
-
 from django.views.generic import ListView, DetailView
 from django.views import generic
 from django.urls import reverse_lazy
 from django.views.generic import DetailView 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
-from .forms import RegistrationForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views import View 
-from .models import Book, Post, BookPage,UserProfile,UserBook, UserBookPage, BookPage
-
-from django.shortcuts import render
-
+from .models import Book, Post, BookPage,UserProfile,UserBook, UserBookPage, BookPage, DefaultUserProfilePicture, UserProfile
 from django.http import HttpResponse
+from django.contrib import messages
+from .forms import UserBookForm, DeleteUserBookForm,DeleteUserBookPageForm ,UserProfilePicChangeForm, RegistrationForm, SavePageForm
+from django.http import HttpResponseForbidden
 
-from .models import UserBook, UserBookPage
+
 
 def Main(request):
 
@@ -114,6 +112,7 @@ def link_view(request):
                } 
     return render(request, 'recipes/links.html', context)
 
+
 def search_results(request):
 
     search_term = request.GET.get('search_term')
@@ -125,18 +124,22 @@ def search_results(request):
     context = {'search_results': search_results}
     return render(request, 'search_results.html', context)
 
+
 class BookDetailView(DetailView):
     model = Book
     template_name = 'book_detail.html'
     context_object_name = 'book'
 
+
 class blogview(ListView):
     model = Post
     template_name = 'another_template.html'
 
+
 class videopage(DetailView):
     model = Post
     template_name = 'videoclass.html'
+
 
 def search_results(request):
 
@@ -154,6 +157,7 @@ def search_results(request):
     context = {'search_results': search_results, 'MEDIA_URL': MEDIA_UR}
 
     return render(request, 'search_results.html', context)
+
 
 def login_view(request):
 
@@ -195,6 +199,7 @@ def login_view(request):
     else:
 
         return render(request, 'login.html')
+
 
 def register_view(request):
 
@@ -242,25 +247,17 @@ def register_view(request):
     return render(request, 'registration.html', {'form': form})
 
 
-
-
-from .forms import UserBookForm, DeleteUserBookForm
-
-
 def UserProfileView(request, pk):
 
     user_profile = UserProfile.objects.get(pk=pk)
 
     user_books = UserBook.objects.filter(user=user_profile.user)
 
-
-
     # Pass the current user to the form
 
     delete_form = DeleteUserBookForm(request.user, request.POST if request.method == 'POST' else None)
 
     create_form = UserBookForm()
-
 
 
     if request.method == 'POST':
@@ -302,7 +299,6 @@ def UserProfileView(request, pk):
             return redirect(request.path_info)  # Redirect to the same page after delete
 
 
-
     context = {
 
         'user_profile': user_profile,
@@ -315,23 +311,7 @@ def UserProfileView(request, pk):
 
     }
 
-
-
     return render(request, 'User_Profile.html', context)
-
-
-
-
-
-
-
-
-from django.shortcuts import render, redirect, get_object_or_404
-
-from .forms import DeleteUserBookPageForm
-
-
-from django.http import HttpResponseForbidden
 
 
 def user_book_pages(request, user_book_id):
@@ -340,21 +320,15 @@ def user_book_pages(request, user_book_id):
 
     user_book_pages = user_book.userbookpage_set.all().order_by('order')
 
-
-
     if request.method == 'POST':
 
         delete_form = DeleteUserBookPageForm(request.POST)
-
-
 
         if delete_form.is_valid():
 
             user_book_page_id = delete_form.cleaned_data['user_book_page_id']
 
             user_book_page = get_object_or_404(UserBookPage, id=user_book_page_id)
-
-
 
             # Check if the logged-in user is the owner of the user book
 
@@ -366,12 +340,9 @@ def user_book_pages(request, user_book_id):
 
                 return HttpResponseForbidden("You are not the owner of this user book, so you can't delete pages.")
 
-    
-
     else:
 
         delete_form = DeleteUserBookPageForm()
-
 
 
     context = {
@@ -384,17 +355,7 @@ def user_book_pages(request, user_book_id):
 
     }
 
-
-
     return render(request, 'user_books.html', context)
-
-
-
-
-
-from .forms import SavePageForm
-
-import time
 
 
 def page_view(request, page_id, book_id):
@@ -402,8 +363,6 @@ def page_view(request, page_id, book_id):
     page = get_object_or_404(BookPage, pk=page_id)
 
     book = get_object_or_404(Book, pk=book_id)
-
-
 
 
     if request.method == 'POST':
@@ -430,13 +389,9 @@ def page_view(request, page_id, book_id):
 
                 return HttpResponse("Page was not saved. I'm sorry :'(")
 
-
-
     else:
 
         form = SavePageForm(user=request.user)  # Pass the user as an argument here
-
-
 
     context = {
 
@@ -448,32 +403,7 @@ def page_view(request, page_id, book_id):
 
     }
 
-
-
     return render(request, 'page_view.html', context)
-
-
-
-from django.contrib import messages
-
-from django.shortcuts import render, redirect
-
-from .models import DefaultUserProfilePicture
-from .forms import UserProfilePicChangeForm
-
-from django.shortcuts import render, redirect
-
-from .models import UserProfile, DefaultUserProfilePicture
-
-from .forms import UserProfilePicChangeForm
-
-
-from django.shortcuts import render, redirect
-
-from .models import UserProfile, DefaultUserProfilePicture
-
-from .forms import UserProfilePicChangeForm
-
 
 
 def default_profile_images(request):
@@ -517,11 +447,7 @@ def default_profile_images(request):
 
         form = UserProfilePicChangeForm()
 
-
-
     default_pics = DefaultUserProfilePicture.objects.all()
-
-
 
     context = {
 
@@ -532,8 +458,6 @@ def default_profile_images(request):
         'default_pics': default_pics,
 
     }
-
-    
 
     return render(request, 'default_profile_images.html', context)
 

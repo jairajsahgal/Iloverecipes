@@ -1,5 +1,7 @@
 from PIL import Image
 
+import PIL.Image
+
 from io import BytesIO
 
 from django.db import models
@@ -10,8 +12,6 @@ from django.core.files.base import ContentFile
 
 from django.contrib.auth.models import User
 
-import PIL.Image
-
 from django.db import models
 
 from django.db.models.signals import post_save
@@ -19,8 +19,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from OCR import perform_ocr
-
-
 
 
 class Book(models.Model):
@@ -74,7 +72,6 @@ class BookPage(models.Model):
 
     page_photo = models.ImageField(upload_to='book_pages/')
     
-
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
@@ -97,7 +94,6 @@ class BookPage(models.Model):
 
         file_content = ContentFile(buffer.read())
 
-
         default_storage.save(file_name, file_content)
 
         image_field.name = file_name
@@ -105,6 +101,7 @@ class BookPage(models.Model):
         def __str__(self):
 
             return f"Page {self.pk} of {self.book.title}"
+
 
 class Post(models.Model):
 
@@ -120,14 +117,12 @@ class Post(models.Model):
 
     date = models.DateField()
 
-
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.thumbnail)
 
-    
     def compress_and_optimize_image(self, image_field):
 
         img = Image.open(image_field)
@@ -146,10 +141,10 @@ class Post(models.Model):
 
         image_field.name = file_name
 
-
     def __str__(self):
 
         return self.title + '|' + str(self.author)
+
 
 class WebImgs(models.Model):
 
@@ -170,8 +165,6 @@ class WebImgs(models.Model):
         img.save(image_field.path, format='JPEG', quality=20, optimize=True)
 
 
-
-
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -180,23 +173,17 @@ class UserProfile(models.Model):
 
     is_verified = models.CharField(max_length=1, default='N')
 
-
-
     def save(self, *args, **kwargs):
 
         super().save(*args, **kwargs)
 
         self.compress_and_optimize_image(self.user_pic)
 
-
-
     def compress_and_optimize_image(self, image_field):
 
         if image_field:
 
             img = Image.open(image_field)
-
-            
 
             # Determine the format of the image (JPEG or PNG)
 
@@ -212,23 +199,17 @@ class UserProfile(models.Model):
 
                 format = 'JPEG'  # Default to JPEG if format is not recognized
 
-            
-
             buffer = BytesIO()
 
             img.save(buffer, format=format, quality=20, optimize=True)
 
             buffer.seek(0)
 
-
-
             file_name = image_field.name
 
             file_content = ContentFile(buffer.read())
 
             default_storage.save(file_name, file_content)
-
-
 
     @receiver(post_save, sender=User)
 
@@ -246,8 +227,6 @@ class UserProfile(models.Model):
 
             user_profile.save()
 
-
-
     @receiver(post_save, sender=User)
 
     def save_user_profile(sender, instance, **kwargs):
@@ -263,21 +242,18 @@ class UserBook(models.Model):
 
     pages = models.ManyToManyField(BookPage, through='UserBookPage')
 
-
     def save(self, *args, **kwargs):
 
         if not self.title:
 
             self.title = f"{self.user.username}_{self.title}"
 
-
         super(UserBook, self).save(*args, **kwargs)
-
-
 
     def __str__(self):
 
         return self.title
+
 
 class UserBookPage(models.Model):
 
@@ -297,7 +273,6 @@ class UserBookPage(models.Model):
 
         super(UserBookPage, self).save(*args, **kwargs)
 
-    
 
 class DefaultUserProfilePicture(models.Model):
 

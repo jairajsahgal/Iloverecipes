@@ -5,6 +5,7 @@
 <head>
 
     <title>Change Profile Picture</title>
+    {% load static %}
 
     <style>
 
@@ -70,9 +71,7 @@
 
         }
 
-
     </style>
-
 
 </head>
 
@@ -80,15 +79,7 @@
 
     <h1>Change Profile Picture</h1>
 
-
-
-    <!-- Display the current user's profile picture -->
-
     <img src="{{MEDIA_URL}}{{ user_profile.user_pic}}" alt="User Profile Picture">
-
-
-
-    <!-- Form for changing the user profile picture -->
 
     <form method="post" enctype="multipart/form-data">
 
@@ -102,13 +93,7 @@
 
     <div class="homelink"><a href="{% url 'recipes:Home' %}">Go Home</a></div>
 
-
-
     <h2>Choose a Default Profile Picture</h2>
-
-
-
-    <!-- Display the default profile pictures in a grid layout -->
 
     <ul>
 
