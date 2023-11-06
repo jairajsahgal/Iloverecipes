@@ -405,9 +405,10 @@ def page_view(request, page_id, book_id):
 
 
 
+
     if request.method == 'POST':
 
-        form = SavePageForm(request.POST)
+        form = SavePageForm(user=request.user, data=request.POST)
 
         if form.is_valid():
 
@@ -423,17 +424,17 @@ def page_view(request, page_id, book_id):
 
             if created:
 
+                return redirect('recipes:book_detail', pk=book.id)
 
-                return redirect('recipes:book_detail', pk=book.id)  # Redirect to the book detail view
-            
             else:
-                HttpResponse("Page was not saved. I'm sorry :'(")
+
+                return HttpResponse("Page was not saved. I'm sorry :'(")
 
 
 
     else:
 
-        form = SavePageForm()
+        form = SavePageForm(user=request.user)  # Pass the user as an argument here
 
 
 
@@ -447,7 +448,10 @@ def page_view(request, page_id, book_id):
 
     }
 
+
+
     return render(request, 'page_view.html', context)
+
 
 
 from django.contrib import messages

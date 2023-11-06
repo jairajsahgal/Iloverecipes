@@ -34,6 +34,31 @@
 
         <div class="flexbox-item flexbox-item-2"><a href="{% url 'recipes:links' %}">Book Links</a></div>
 
+
+        {% if user.is_authenticated %}
+
+        {% with user_profile=user.userprofile %}
+    
+            <div class="flexbox-item flexbox-item-2">
+    
+                <a href="{% url 'recipes:user_profile' user_profile.id %}">My Profile</a>
+    
+            </div>
+    
+        {% endwith %}
+    
+        {% else %}
+    
+            <div class="flexbox-item flexbox-item-2">
+        
+                <a href="{% url 'recipes:login' %}">Login/Register</a>
+        
+            </div>
+        
+        {% endif %}
+    
+    
+
         <form id="search-form" action="{% url 'recipes:search_results' %}" method="get">
 
             <input class="flexbox-item-entrybox" type="text" name="search_term" autocomplete="off" autofocus="true">
@@ -121,7 +146,6 @@
                     {% if book.cover_photo %}
 
                         <div class="book-image">
-
 
                             <img src="{{ MEDIA_URL }}{{ book.cover_photo.name }}" alt="Page {{ page.pk }}">  
 

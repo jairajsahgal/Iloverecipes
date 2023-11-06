@@ -1,6 +1,8 @@
 from django import forms
 from .models import UserBook
 
+from django.contrib.auth import get_user_model
+
 
 
 class RegistrationForm(forms.Form):
@@ -14,10 +16,18 @@ class RegistrationForm(forms.Form):
     confirm_password = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
 
 
+
 class SavePageForm(forms.Form):
 
-    user_book = forms.ModelChoiceField(queryset=UserBook.objects.all(), empty_label=None, label="Select User Book")
+    def __init__(self, user, *args, **kwargs):
 
+        super(SavePageForm, self).__init__(*args, **kwargs)
+
+        self.fields['user_book'].queryset = UserBook.objects.filter(user=user)
+
+
+
+    user_book = forms.ModelChoiceField(queryset=UserBook.objects.none(), empty_label=None, label="Select User Book")
 
 
 

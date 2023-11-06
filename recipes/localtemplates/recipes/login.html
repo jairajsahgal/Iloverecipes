@@ -1,17 +1,145 @@
+<!DOCTYPE html>
 
-{% block content %}
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-    <button type="submit">Login</button>
-</form>
+<html>
 
-<div class="flexbox-item flexbox-item-5"><a href="{% url 'recipes:registration' %}">Need to register?</a></div>
+<head>
+
+    <title>Login</title>
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(#646257, #2e2c2c, #646257);
+
+            text-align: center;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+        h2 {
+
+            color: #007bff;
+
+        }
+
+        form {
+
+            max-width: 500px;
 
 
-<div><a href="{% url 'recipes:base' %}">base</a></div>
-{% endblock %}
+
+
+            margin: 0 auto;
+
+            padding: 20px;
+
+            background: linear-gradient(#D8D4BB, #8f8f8f);
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+            text-align: left;
+
+        }
+
+        label {
+
+            display: block;
+
+            margin-bottom: 10px;
+
+        
+
+        }
+
+        input[type="text"], input[type="password"] {
+
+            width: 95%;
+
+            padding: 10px;
+
+            margin-bottom: 20px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+        }
+
+        button {
+
+            background-color: #007bff;
+
+            color: #fff;
+
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+        }
+
+        button:hover {
+
+            background-color: #0056b3;
+
+        }
+
+        .flexbox-item {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin-top: 10px;
+
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Login</h2>
+
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <label for="username">Username:</label>
+
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Login</button>
+
+    </form>
+
+
+
+    <div class="flexbox-item flexbox-item-5"><a href="{% url 'recipes:registration' %}">Need to register?</a></div>
+
+    <div class="flexbox-item"><a href="{% url 'recipes:base' %}>base</a></div>
+
+</body>
+
+</html>
+

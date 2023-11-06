@@ -1,5 +1,3 @@
-<!-- default_profile_images.html -->
-
 <!DOCTYPE html>
 
 <html>
@@ -8,19 +6,75 @@
 
     <title>Change Profile Picture</title>
 
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(#646257, #2e2c2c, #646257);
+
+            text-align: center;
+
+        }
+
+        h1 {
+
+            color: #007bff;
+
+        }
+
+        img {
+
+            max-width: 100%;
+
+            height: auto;
+
+        }
+
+        form {
+
+            margin: 20px;
+
+        }
+
+        ul {
+
+            list-style: none;
+
+            padding: 0;
+
+            display: grid;
+
+            grid-template-columns: repeat(5, 1fr);
+
+            grid-gap: 20px;
+
+            justify-items: center;
+
+        }
+
+        li {
+
+            text-align: center;
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
     <h1>Change Profile Picture</h1>
 
-    
+
 
     <!-- Display the current user's profile picture -->
 
     <img src="{{ user_profile.user_pic.url }}" alt="User Profile Picture">
 
-    
+
 
     <!-- Form for changing the user profile picture -->
 
@@ -34,13 +88,13 @@
 
     </form>
 
-    
+
 
     <h2>Choose a Default Profile Picture</h2>
 
-    
 
-    <!-- Display the default profile pictures with buttons to set them -->
+
+    <!-- Display the default profile pictures in a grid layout -->
 
     <ul>
 
@@ -69,8 +123,4 @@
 </body>
 
 </html>
-
-
-
-
 
