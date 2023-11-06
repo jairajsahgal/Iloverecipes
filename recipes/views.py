@@ -222,7 +222,7 @@ def register_view(request):
 
                 send_mail(
                     f"Welcome {new_user.username}",
-                    "Thank you for joining I love cookbooks",
+                    "Thank you for joining the cookbook movement! It is with great joy that I present ilovecookbooks.org. Heres what you have the power to do: First, I encourage you to navigate to your user profile and set a profile picture. There's plenty of ai generated photos to choose from, or you can upload your own. Second, create new books on your profile page. Then as you browse the cookbooks on this website you will be able to save pages that you like to whichever category you defined! That's the magic of it! Enjoy! ",
                     "admin@ilovecookbooks.org",
                     [new_user.email],
                     fail_silently=False,
