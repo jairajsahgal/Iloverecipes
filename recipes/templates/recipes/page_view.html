@@ -120,6 +120,19 @@
 
         }
 
+        
+        .homelink{
+
+        background: linear-gradient(#D8D4BB, #8f8f8f);
+        width: fit-content;
+        padding:10px;
+
+        border-radius: 10px 10px 10px 10px; /* Rounded corners on top */
+
+        text-align:center;
+
+        }
+
     </style>
 
 </head>
@@ -150,10 +163,10 @@
 
         </form>
 
-        <a href="{% url 'recipes:book_detail' book.pk %}">Back to Book-{{ book.title }}</a>
+        <div class="homelink"><a href="{% url 'recipes:book_detail' book.pk %}">Back to Book-{{ book.title }}</a></div>
 
 
-    <div><a href="{% url 'recipes:Home' %}">Go Home</a></div>
+    <div class="homelink"><a href="{% url 'recipes:Home' %}">Go Home</a></div>
 
 </div>
 
