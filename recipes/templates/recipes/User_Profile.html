@@ -196,13 +196,13 @@
 
                 {% if user_profile.user == request.user %}
 
-                <a class="change-photo-link" href="{% url 'recipes:default_profile_images' %}">Change Photo</a>
+                <button><a class="change-photo-link" href="{% url 'recipes:default_profile_images' %}">Change Photo</a></button>
 
                 {% endif %}
 
             </div>
 
-            <div class="homelink"><a href="{% url 'recipes:Home' %}">Go Home</a></div>
+            <button><a href="{% url 'recipes:Home' %}">Go Home</a></div></button>
 
         </div>
 
