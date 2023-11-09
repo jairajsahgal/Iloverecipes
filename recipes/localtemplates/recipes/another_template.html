@@ -6,7 +6,6 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
 
-
 {% for post in object_list %}
 <div class="column2">
     <div class="object">
@@ -27,8 +26,6 @@
     </div>
     <a href="{% url 'recipes:details' post.pk %}">view video</a>
 </div>
-
-
 
 </div>
 

@@ -172,21 +172,9 @@ def login_view(request):
         if user is not None:
 
             login(request, user)
-            recent5 = Book.objects.order_by('-id')[:5]  # Order by id in descending order to get the latest 5 books
 
-            all_books = Book.objects.all()
-            pages = BookPage.objects.all()
-            context = {
 
-                    'recent': recent5,
-
-                    'pages': pages,
-
-                    'all': all_books,
-
-                    }
-
-            return render(request, 'home.html', context)
+            return redirect('recipes:Home')
 
         else:
 

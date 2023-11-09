@@ -34,6 +34,7 @@ header {
     max-width: 100%;
 }
 
+
 .flexbox-item {
 
     display: flex;
@@ -117,6 +118,7 @@ header {
 
     transition: background-color 0.3s, transform 0.3s, color 0.3s;
 }
+
 
 
 .flexbox-item-button {
@@ -639,6 +641,175 @@ header {
 
 
 }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(#646257, #2e2c2c, #646257);
+
+            text-align: center;
+
+        }
+
+        .profile-container {
+
+ 
+
+            width: 100%;
+
+            margin: 0 auto;
+
+            background: linear-gradient(#D8D4BB, #8f8f8f);
+
+            border: 1px solid #ddd;
+
+            border-radius: 5px;
+
+            display: flex;
+
+            flex-direction: row; /* Arrange user photo and content side by side */
+
+            align-items: flex-start; /* Align content to the top */
+
+            justify-content: space-between; /* Create space between user photo and content */
+
+        }
+
+        .user-info {
+
+            padding: 20px;
+
+        }
+
+        .user-pic {
+
+            max-width: 200px;
+
+            height: auto;
+
+        }
+
+        .user-pic img {
+
+            height: 150%;
+
+        }
+
+        .change-photo-link {
+
+            display: block;
+
+            margin-top: 10px;
+
+        }
+
+        .verified {
+
+            font-weight: bold;
+
+        }
+
+        .user-books {
+
+            flex: 1; /* Take up remaining space to the right */
+
+            padding-left: 30%;
+
+            padding-top: 10%;
+
+            text-align: left;
+
+        }
+
+        .books-list {
+
+            list-style: none;
+
+            padding: 0;
+
+            text-align: left;
+
+        }
+
+        .books-list li {
+
+            margin: 10px 0;
+
+        }
+
+        .form-container {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            grid-column-gap: 20px;
+
+            align-items: center;
+
+            position: sticky;
+
+        }
+
+        .create-book-form,
+
+        .delete-book-form {
+
+            margin: 20px 0;
+
+        }
+
+        .button {
+
+            background-color: #007bff;
+
+            color: #fff;
+
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+        }
+
+
+        .homelink{
+
+            background: linear-gradient(#D8D4BB, #8f8f8f);
+            width: fit-content;
+            height: fit-content;
+            padding:10px;
+
+            border-radius: 10px 10px 10px 10px; /* Rounded corners on top */
+
+            text-align:center;
+  
+        }
+
+        .button:hover {
+
+            background-color: #0056b3;
+
+        }
+
+        a {
+
+            text-decoration: none;
+
+            color: #007bff;
+
+        }
+
+        a:hover {
+
+            text-decoration: underline;
+
+        }
 
 
 

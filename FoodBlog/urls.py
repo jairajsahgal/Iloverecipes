@@ -24,8 +24,10 @@ urlpatterns = [
     path("", include("recipes.urls")),
     path("recipes/", include("recipes.urls")),
     path("admin/", admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path("base/", include("recipes.urls")),
     path("accounts/", include("recipes.urls")),
+
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

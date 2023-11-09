@@ -5,6 +5,7 @@
 <head>
 
     <title>Change Profile Picture</title>
+    {% load static %}
 
     <style>
 
@@ -60,6 +61,16 @@
 
         }
 
+        .homelink{
+
+        background: linear-gradient(#D8D4BB, #8f8f8f);
+        width: fit-content;
+        padding:10px;
+
+        border-radius: 10px 10px 10px 10px; /* Rounded corners on top */
+
+        }
+
     </style>
 
 </head>
@@ -68,15 +79,7 @@
 
     <h1>Change Profile Picture</h1>
 
-
-
-    <!-- Display the current user's profile picture -->
-
-    <img src="{{MEDIA_URL}}{{ user_profile.user_pic.url }}" alt="User Profile Picture">
-
-
-
-    <!-- Form for changing the user profile picture -->
+    <img src="{{MEDIA_URL}}{{ user_profile.user_pic}}" alt="User Profile Picture">
 
     <form method="post" enctype="multipart/form-data">
 
@@ -88,13 +91,9 @@
 
     </form>
 
-
+    <div class="homelink"><a href="{% url 'recipes:Home' %}">Go Home</a></div>
 
     <h2>Choose a Default Profile Picture</h2>
-
-
-
-    <!-- Display the default profile pictures in a grid layout -->
 
     <ul>
 
@@ -102,7 +101,7 @@
 
             <li>
 
-                <img src="{{ pic.image.url }}" alt="{{ pic.name }}">
+                <img src="{{MEDIA_URL}}{{ pic.image }}" alt="{{ pic.name }}">
 
                 <form method="post" action="{% url 'recipes:default_profile_images' %}">
 

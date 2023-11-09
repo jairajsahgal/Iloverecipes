@@ -1,22 +1,51 @@
 <!DOCTYPE html>
 
-<html>
-
-
+<html lang="en">
 
 <head>
 
+    {%load static%}
+
     <title>User Profile</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
 
     <style>
 
-        body {
 
-            font-family: Arial, sans-serif;
 
-            background: linear-gradient(#646257, #2e2c2c, #646257);
 
-            text-align: center;
+        .flexbox-container {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: linear-gradient(#ffdd0000 73%, #D8D4BB 27%);
+
+            padding: 10px;
+
+        }
+
+
+
+        .flexbox-item {
+
+            margin: 0;
+
+        }
+
+
+
+        .change-photo-link,
+
+        .logout-button,
+
+        .home-link {
+
+            margin-left: 10px;
 
         }
 
@@ -24,7 +53,7 @@
 
         .profile-container {
 
-            max-width: 95%;
+            width: 100%;
 
             margin: 0 auto;
 
@@ -36,17 +65,11 @@
 
             display: flex;
 
-            flex-direction: row; /* Arrange user photo and content side by side */
+            flex-direction: row;
 
-            align-items: flex-start; /* Align content to the top */
+            align-items: flex-start;
 
-            justify-content: space-between; /* Create space between user photo and content */
-
-        }
-
-
-
-        .user-info {
+            justify-content: space-between;
 
             padding: 20px;
 
@@ -54,9 +77,17 @@
 
 
 
+        .user-info {
+
+            text-align: left;
+
+        }
+
+
+
         .user-pic {
 
-            max-width: 200px;
+            width:25%;
 
             height: auto;
 
@@ -66,28 +97,7 @@
 
         .user-pic img {
 
-
-
-
-            height: 300%;
-
-        }
-
-
-
-        .change-photo-link {
-
-            display: block;
-
-            margin-top: 10px;
-
-        }
-
-
-
-        .verified {
-
-            font-weight: bold;
+            height: 30%;
 
         }
 
@@ -95,9 +105,9 @@
 
         .user-books {
 
-            flex: 1; /* Take up remaining space to the right */
+            flex: 1;
 
-            padding-left: 20%;
+            padding-left: 15%;
 
             padding-top: 10%;
 
@@ -131,13 +141,14 @@
 
             display: grid;
 
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1.5fr;
 
             grid-column-gap: 20px;
 
-            align-items: center;
+            align-items: left;
 
             position: sticky;
+            
 
         }
 
@@ -169,11 +180,25 @@
 
         }
 
-        .homelink{
+        .button2 {
 
-            text-align:center;
-            padding-top: 90%;
-        }
+            background-color: #007bff00;
+
+            color: #007bff;
+
+            font-size: large;
+            font-weight: bold;
+
+
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            }
 
 
 
@@ -205,92 +230,45 @@
 
 </head>
 
-
-
 <body>
 
-    <div class="profile-container">
+    <div class="flexbox-container">
 
-        <div class="user-info">
+        <div class="flexbox-item flexbox-item-2">
 
-            <h1>User Profile</h1>
+            <a href="{% url 'recipes:links' %}">Book Links</a>
 
-            <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
+        </div>
 
-            <div class="user-pic">
 
-                <img src="{{ user_profile.user_pic.url }}">
 
-                {% if user_profile.user == request.user %}
+        {% if user_profile.user == request.user %}
+
+            <div class="flexbox-item flexbox-item-2">
 
                 <a class="change-photo-link" href="{% url 'recipes:default_profile_images' %}">Change Photo</a>
 
-                {% endif %}
-
             </div>
 
-            <div class="homelink"><a href="{% url 'recipes:Home' %}">Go Home</a></div>
+        {% endif %}
+
+
+
+        <div class="flexbox-item flexbox-item-2">
+
+            <a href="{% url 'recipes:Home' %}" class="home-link">Go Home</a>
 
         </div>
 
 
 
+        <div class="flexbox-item flexbox-item-2">
 
-
-        <div class="user-books">
-
-            <h2>User's Books:</h2>
-
-            <ul class="books-list">
-
-                {% for user_book in user_books %}
-
-                <li>
-
-                    <a href="{% url 'recipes:user_book_pages' user_book_id=user_book.id %}">{{ user_book.title }}</a>
-
-                </li>
-
-                {% endfor %}
-
-            </ul>
-
-
-
-
-
-
-    <div class="form-container">
-
-        <div class="create-book-form">
-
-            <h2>Create a New User Book:</h2>
-
-            <form method="post">
+            <form method="post" action="{% url 'logout' %}">
 
                 {% csrf_token %}
 
-                {{ create_form.as_p }}
-
-                <button class="button" type="submit" name="create_book">Create User Book</button>
-
-            </form>
-
-        </div>
-
-
-
-        <div class="delete-book-form">
-
-            <h2>Delete User Book:</h2>
-
-            <form method="post">
-
-                {% csrf_token %}
-
-                {{ delete_form.as_p }}
-
-                <button class="button" type="submit" name="delete_book">Delete User Book</button>
+                <button class="button2 logout-button" type="submit">Logout</button>
 
             </form>
 
@@ -300,18 +278,88 @@
 
 
 
-</div>
+    <div class="profile-container">
 
-</div>
+        <div class="user-info">
+
+            <h1>User Profile</h1>
+
+            <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
+
+
+
+            <div class="user-pic">
+
+                <img src="{{MEDIA_URL}}{{ user_profile.user_pic }}" alt="User Profile Pic">
+
+            </div>
+
+        </div>
 
 
 
 
 
+        <div class="form-container">
+
+            <div class="create-book-form">
+
+                <h2>Create a New User Book:</h2>
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    {{ create_form.as_p }}
+
+                    <button class="button" type="submit" name="create_book">Create User Book</button>
+
+                </form>
+
+            </div>
+
+
+
+            <div class="delete-book-form">
+
+                <h2>Delete User Book:</h2>
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    {{ delete_form.as_p }}
+
+                    <button class="button" type="submit" name="delete_book">Delete User Book</button>
+
+                </form>
+
+            </div>
+
+            <div class="user-books">
+
+                <h2>User's Books:</h2>
+    
+                <ul class="books-list">
+    
+                    {% for user_book in user_books %}
+    
+                        <li>
+    
+                            <a href="{% url 'recipes:user_book_pages' user_book_id=user_book.id %}">{{ user_book.title }}</a>
+    
+                        </li>
+    
+                    {% endfor %}
+    
+                </ul>
+    
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 
-
-
 </html>
-
