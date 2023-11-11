@@ -113,16 +113,16 @@ def link_view(request):
     return render(request, 'recipes/links.html', context)
 
 
-def search_results(request):
-
-    search_term = request.GET.get('search_term')
-    if search_term:
-        search_results = BookPage.objects.filter(keywords__contains=search_term)
-    else:
-        search_results = None
-    
-    context = {'search_results': search_results}
-    return render(request, 'search_results.html', context)
+#def search_results(request):
+#
+#    search_term = request.GET.get('search_term')
+#    if search_term:
+#        search_results = BookPage.objects.filter(keywords__contains=search_term)
+#    else:
+#        search_results = None
+#    
+#    context = {'search_results': search_results}
+#    return render(request, 'search_results.html', context)
 
 
 class BookDetailView(DetailView):

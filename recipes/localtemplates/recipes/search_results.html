@@ -3,15 +3,33 @@
 
 <html lang="en">
 
+<style>
+
+    .detaillink{
+
+    padding-top: 30px;
+    }
+
+    .homelink{
+
+        background: linear-gradient(rgb(0, 141, 217), rgb(60, 115, 151));
+
+        width: fit-content;
+        
+        padding:10px;
+
+        border-radius: 10px 10px 10px 10px; /* Rounded corners on top */
+
+        }
+
+</style>
+
 <head>
 
     {% load static %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'css.css' %}">
 
-    <div><a href="{% url 'recipes:base' %}">base</a></div>
-
- 
 
 </head>
 
@@ -35,7 +53,15 @@
 
                 </div>
 
+                <div class="detaillink">
+            
+                    <strong><a href="{% url 'recipes:page_view' page.id page.book.id %}">Details</a></strong>
+    
+                </div>
+    
+
             </div>
+
 
             {% endfor %}
 
@@ -48,6 +74,9 @@
     <p>No results found.</p>
 
     {% endif %}
+
+
+    <div class="homelink"><a href="{% url 'recipes:Home' %}">Go Home</a></div>
 
 </body>
 
